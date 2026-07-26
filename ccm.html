@@ -1189,14 +1189,18 @@
     }
   </script>
 
-<button class="theme-toggle-floating" id="themeToggleBtn" title="Toggle Light/Dark Theme">🌙</button>
+
+
+
+<!-- Light / Dark Mode Floating Toggle Button -->
+<button id="themeToggleFloatingBtn" title="Toggle Light/Dark Theme">🌙</button>
 
 <script>
 (function() {
-  const toggleBtn = document.getElementById('themeToggleBtn');
-  const savedTheme = localStorage.getItem('caremed_theme') || 'dark';
+  const toggleBtn = document.getElementById('themeToggleFloatingBtn');
+  let currentTheme = localStorage.getItem('caremed_theme') || 'dark';
 
-  function applyTheme(theme) {
+  function updateTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
     if (toggleBtn) {
@@ -1204,14 +1208,15 @@
     }
   }
 
-  applyTheme(savedTheme);
+  // Apply immediately on load
+  updateTheme(currentTheme);
 
   if (toggleBtn) {
-    toggleBtn.addEventListener('click', function() {
-      const current = document.documentElement.getAttribute('data-theme') || 'dark';
-      const nextTheme = current === 'dark' ? 'light' : 'dark';
-      localStorage.setItem('caremed_theme', nextTheme);
-      applyTheme(nextTheme);
+    toggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
+      localStorage.setItem('caremed_theme', currentTheme);
+      updateTheme(currentTheme);
     });
   }
 })();
