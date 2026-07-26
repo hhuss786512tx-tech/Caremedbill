@@ -75,6 +75,83 @@
     }
 
     </style>
+
+<!-- CareMedBill Direct Theme & Typography Override -->
+<style id="caremedThemeDirectOverride">
+/* Force Times New Roman Font Across All Tags */
+*, *::before, *::after, html, body, h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, select, textarea, label, div, section, header, footer, nav, table, td, th {
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
+/* Black Background Default Dark Mode */
+html, body, body[data-theme="dark"], html[data-theme="dark"] body, 
+html[data-theme="dark"] section, html[data-theme="dark"] .space, 
+html[data-theme="dark"] .hero-wrapper, html[data-theme="dark"] .th-hero-wrapper,
+html[data-theme="dark"] .th-header, html[data-theme="dark"] .header-top, 
+html[data-theme="dark"] .menu-area, html[data-theme="dark"] .sticky-wrapper {
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+/* White Headings & Paragraphs in Dark Mode */
+html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3, 
+html[data-theme="dark"] h4, html[data-theme="dark"] h5, html[data-theme="dark"] h6,
+html[data-theme="dark"] .title, html[data-theme="dark"] .box-title, html[data-theme="dark"] .widget_title {
+  color: #FFFFFF !important;
+}
+html[data-theme="dark"] p, html[data-theme="dark"] span, html[data-theme="dark"] li,
+html[data-theme="dark"] a:not(.th-btn):not(.btn) {
+  color: #E2E8F0 !important;
+}
+
+/* Dark Mode Cards */
+html[data-theme="dark"] .service-card, html[data-theme="dark"] .feature-card, 
+html[data-theme="dark"] .testi-card, html[data-theme="dark"] .widget,
+html[data-theme="dark"] .th-widget-about, html[data-theme="dark"] .appointment-form,
+html[data-theme="dark"] .process-card, html[data-theme="dark"] .th-menu-area {
+  background-color: #0c0c12 !important;
+  border: 1px solid #1e1e2c !important;
+  color: #FFFFFF !important;
+}
+
+/* Electric Royal Blue Buttons & Icons */
+.th-btn, .btn, .btn-primary, button[type="submit"] {
+  background-color: #0052FF !important;
+  color: #FFFFFF !important;
+  border-color: #0052FF !important;
+  box-shadow: 0 4px 15px rgba(0, 82, 255, 0.35) !important;
+}
+.th-btn:hover, .btn:hover, button[type="submit"]:hover {
+  background-color: #0039B3 !important;
+  color: #FFFFFF !important;
+}
+
+.box-icon, .icon-btn, .sub-title, i.fal, i.fas, i.far, i.fab {
+  color: #0052FF !important;
+}
+
+/* Light Mode Overrides */
+html[data-theme="light"] body, html[data-theme="light"] section, 
+html[data-theme="light"] .space, html[data-theme="light"] .hero-wrapper {
+  background-color: #FFFFFF !important;
+  color: #000000 !important;
+}
+html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3, 
+html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light"] h6,
+html[data-theme="light"] .box-title, html[data-theme="light"] .widget_title {
+  color: #000000 !important;
+}
+html[data-theme="light"] p, html[data-theme="light"] span, html[data-theme="light"] li {
+  color: #1E293B !important;
+}
+html[data-theme="light"] .service-card, html[data-theme="light"] .feature-card, 
+html[data-theme="light"] .testi-card, html[data-theme="light"] .widget {
+  background-color: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #000000 !important;
+}
+</style>
+
 </head>
 
 <body>
