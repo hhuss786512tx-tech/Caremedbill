@@ -20319,3 +20319,163 @@ span.select2-selection.select2-selection--single:focus {
   background-color: #03060B !important;
   border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
 }
+
+
+/* ==========================================================================
+   CareMedBill - Times New Roman Black, Royal Blue & White Theme (Dark/Light)
+   ========================================================================== */
+
+:root {
+  --body-font: 'Times New Roman', Times, serif !important;
+  --title-font: 'Times New Roman', Times, serif !important;
+
+  /* Default Dark Mode (Black Background) */
+  --bg-primary: #000000 !important;
+  --bg-secondary: #08080c !important;
+  --bg-card: #101016 !important;
+
+  --theme-color: #0052FF !important;      /* Royal Blue Accent */
+  --theme-color2: #1E6BFF !important;
+  --title-color: #FFFFFF !important;      /* White Titles */
+  --body-color: #F1F5F9 !important;       /* Crisp White/Off-White Body */
+  --black-color: #000000 !important;
+  --white-color: #FFFFFF !important;
+  --th-border-color: #20202c !important;
+}
+
+/* Global Font Override */
+body, h1, h2, h3, h4, h5, h6, p, a, span, li, button, input, select, textarea, label, div {
+  font-family: 'Times New Roman', Times, serif !important;
+}
+
+body {
+  background-color: #000000 !important;
+  color: #F1F5F9 !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+}
+
+/* Floating Light/Dark Theme Toggle Button */
+.theme-toggle-floating {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 99999;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #0052FF;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0, 82, 255, 0.45);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  transition: transform 0.25s ease, background-color 0.25s ease;
+}
+.theme-toggle-floating:hover {
+  transform: scale(1.12);
+  background: #0039B3;
+}
+
+/* Dark Mode (Black Background) Overrides */
+html[data-theme="dark"] body, body[data-theme="dark"] {
+  background-color: #000000 !important;
+  color: #F1F5F9 !important;
+}
+html[data-theme="dark"] .th-header,
+html[data-theme="dark"] .header-top,
+html[data-theme="dark"] .sticky-wrapper,
+html[data-theme="dark"] .menu-area {
+  background-color: #060609 !important;
+  border-bottom: 1px solid #1a1a24 !important;
+}
+html[data-theme="dark"] .main-menu > ul > li > a {
+  color: #FFFFFF !important;
+}
+html[data-theme="dark"] .main-menu > ul > li > a:hover {
+  color: #0052FF !important;
+}
+html[data-theme="dark"] .service-card,
+html[data-theme="dark"] .feature-card,
+html[data-theme="dark"] .testi-card,
+html[data-theme="dark"] .widget,
+html[data-theme="dark"] .th-widget-about,
+html[data-theme="dark"] .appointment-form,
+html[data-theme="dark"] .th-menu-area {
+  background-color: #0a0a0f !important;
+  border: 1px solid #1e1e2c !important;
+  color: #F1F5F9 !important;
+}
+html[data-theme="dark"] h1, html[data-theme="dark"] h2, html[data-theme="dark"] h3, 
+html[data-theme="dark"] h4, html[data-theme="dark"] h5, html[data-theme="dark"] h6,
+html[data-theme="dark"] .box-title, html[data-theme="dark"] .widget_title {
+  color: #FFFFFF !important;
+}
+html[data-theme="dark"] p, html[data-theme="dark"] span, html[data-theme="dark"] li {
+  color: #CBD5E1 !important;
+}
+html[data-theme="dark"] .hero-wrapper,
+html[data-theme="dark"] .space,
+html[data-theme="dark"] .space-top,
+html[data-theme="dark"] .space-bottom {
+  background-color: #000000 !important;
+}
+html[data-theme="dark"] .footer-layout1,
+html[data-theme="dark"] .footer-wrapper {
+  background-color: #050508 !important;
+  color: #94A3B8 !important;
+}
+html[data-theme="dark"] .copyright-wrap {
+  background-color: #000000 !important;
+  border-top: 1px solid #181824 !important;
+}
+
+/* Light Mode (White Background) Overrides */
+html[data-theme="light"] body, body[data-theme="light"] {
+  background-color: #FFFFFF !important;
+  color: #0F172A !important;
+}
+html[data-theme="light"] .th-header,
+html[data-theme="light"] .header-top,
+html[data-theme="light"] .sticky-wrapper,
+html[data-theme="light"] .menu-area {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #E2E8F0 !important;
+}
+html[data-theme="light"] .main-menu > ul > li > a {
+  color: #000000 !important;
+}
+html[data-theme="light"] .service-card,
+html[data-theme="light"] .feature-card,
+html[data-theme="light"] .testi-card,
+html[data-theme="light"] .widget,
+html[data-theme="light"] .appointment-form {
+  background-color: #F8FAFC !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #0F172A !important;
+}
+html[data-theme="light"] h1, html[data-theme="light"] h2, html[data-theme="light"] h3, 
+html[data-theme="light"] h4, html[data-theme="light"] h5, html[data-theme="light"] h6,
+html[data-theme="light"] .box-title, html[data-theme="light"] .widget_title {
+  color: #000000 !important;
+}
+html[data-theme="light"] p, html[data-theme="light"] span, html[data-theme="light"] li {
+  color: #1E293B !important;
+}
+html[data-theme="light"] .hero-wrapper,
+html[data-theme="light"] .space,
+html[data-theme="light"] .space-top,
+html[data-theme="light"] .space-bottom {
+  background-color: #FFFFFF !important;
+}
+html[data-theme="light"] .footer-layout1,
+html[data-theme="light"] .footer-wrapper {
+  background-color: #F1F5F9 !important;
+  color: #334155 !important;
+}
+html[data-theme="light"] .copyright-wrap {
+  background-color: #E2E8F0 !important;
+  color: #0F172A !important;
+}

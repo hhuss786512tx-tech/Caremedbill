@@ -1188,5 +1188,34 @@
       });
     }
   </script>
+
+<button class="theme-toggle-floating" id="themeToggleBtn" title="Toggle Light/Dark Theme">🌙</button>
+
+<script>
+(function() {
+  const toggleBtn = document.getElementById('themeToggleBtn');
+  const savedTheme = localStorage.getItem('caremed_theme') || 'dark';
+
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    document.body.setAttribute('data-theme', theme);
+    if (toggleBtn) {
+      toggleBtn.innerHTML = theme === 'light' ? '☀️' : '🌙';
+    }
+  }
+
+  applyTheme(savedTheme);
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', function() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const nextTheme = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('caremed_theme', nextTheme);
+      applyTheme(nextTheme);
+    });
+  }
+})();
+</script>
+
 </body>
 </html>
