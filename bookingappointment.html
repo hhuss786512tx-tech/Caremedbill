@@ -571,30 +571,45 @@
 
 
 <!-- Light / Dark Mode Floating Toggle Button -->
-<button id="themeToggleFloatingBtn" title="Toggle Light/Dark Theme">🌙</button>
+
+
+
+<!-- AI Theme Mode Switcher UI Widget -->
+<div class="ai-theme-toggle-widget" id="aiThemeWidget" title="Toggle AI Theme Mode">
+  <div class="ai-theme-badge">
+    <i class="fas fa-sparkles"></i>
+    <span id="aiThemeLabel">AI Theme</span>
+  </div>
+  <div class="ai-theme-switch-track">
+    <span class="ai-theme-icon moon"><i class="fas fa-moon"></i></span>
+    <span class="ai-theme-icon sun"><i class="fas fa-sun"></i></span>
+    <div class="ai-theme-thumb"></div>
+  </div>
+</div>
 
 <script>
 (function() {
-  const toggleBtn = document.getElementById('themeToggleFloatingBtn');
+  const widget = document.getElementById('aiThemeWidget');
+  const label = document.getElementById('aiThemeLabel');
   let currentTheme = localStorage.getItem('caremed_theme') || 'dark';
 
-  function updateTheme(theme) {
+  function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     document.body.setAttribute('data-theme', theme);
-    if (toggleBtn) {
-      toggleBtn.innerHTML = theme === 'light' ? '☀️' : '🌙';
+    if (label) {
+      label.innerText = (theme === 'light') ? 'Light Mode' : 'Dark Mode';
     }
   }
 
   // Apply immediately on load
-  updateTheme(currentTheme);
+  applyTheme(currentTheme);
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', function(e) {
+  if (widget) {
+    widget.addEventListener('click', function(e) {
       e.preventDefault();
       currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
       localStorage.setItem('caremed_theme', currentTheme);
-      updateTheme(currentTheme);
+      applyTheme(currentTheme);
     });
   }
 })();
