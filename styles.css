@@ -230,3 +230,84 @@ footer, .main-footer {
   gap: 3.5rem;
   margin-bottom: 4rem;
 }
+
+
+/* ==========================================================================
+   CareMedBill - Auto Testimonial Carousel & Scroll Reveal Animations
+   ========================================================================== */
+
+/* Testimonial Auto-Flip Slider */
+.testi-carousel-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 1rem 0 3rem;
+}
+
+.testi-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.testi-slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
+}
+
+.testi-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1.8rem;
+}
+
+.testi-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--border-glass);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.testi-dot.active {
+  background: var(--accent-primary);
+  width: 32px;
+  border-radius: 9999px;
+}
+
+/* Scroll Animation Reveal Classes */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(35px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom Theme Toggle Button */
+.theme-toggle-btn {
+  background: var(--bg-tertiary) !important;
+  border: 1px solid var(--border-glass) !important;
+  color: var(--text-primary) !important;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  display: grid !important;
+  place-items: center !important;
+  cursor: pointer !important;
+  font-size: 1.1rem !important;
+  transition: all 0.25s ease !important;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--accent-primary) !important;
+  color: var(--accent-primary) !important;
+  transform: scale(1.08) rotate(15deg) !important;
+}
