@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <title>Wizard Form – Date & Time · Basic Details · Summary</title>
+  <style>
+    :root{--bg:#f7f9fc;--card:#ffffff;--primary:#16c79a;--primary-600:#0fb488;--muted:#8c93a6;--text:#1f2937;--border:#e6e9ef;--shadow:0 8px 20px rgba(15,23,42,.06)}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;color:var(--text);background:var(--bg)}
+    .container{max-width:1080px;margin:24px auto;padding:0 16px}
+
+    /* Stepper */
+    .stepper{display:flex;gap:16px;align-items:center;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+    .step{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;color:#111827;border:1px solid transparent;transition:.2s ease;background:#fff}
+    .step.active{background:#e8fcf5;border-color:#c9f3e6}
+    .step .icon{height:36px;width:36px;border-radius:10px;display:grid;place-items:center;background:#e6f7f2;color:#0e9f7d;font-weight:700;border:1px solid #c9f3e6}
+    .step .title{font-weight:600}
+    .spacer{flex:1;height:1px;background:var(--border)}
+
+    /* Card */
+    .card{background:var(--card);border:1px solid var(--border);box-shadow:var(--shadow);margin-top:18px;border-radius:12px;padding:22px}
+    .section-title{font-size:22px;margin:0 0 18px 0}
+
+    .grid{display:grid;grid-template-columns: 1.08fr .92fr;gap:24px}
+
+    /* Calendar */
+    .calendar{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff}
+    .cal-header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border)}
+    .cal-header h4{margin:0;font-weight:600}
+    .nav-btn{background:#fff;border:1px solid var(--border);height:32px;width:32px;border-radius:8px;display:grid;place-items:center;cursor:pointer}
+    .nav-btn:hover{background:#f4f6fa}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr)}
+    .dow{padding:10px 0;text-align:center;font-size:12px;color:var(--muted);background:#fafbfe;border-bottom:1px solid var(--border)}
+    .date{height:64px;display:grid;place-items:center;border-right:1px solid var(--border);border-bottom:1px solid var(--border);font-weight:500;cursor:pointer}
+    .date:nth-child(7n){border-right:0}
+    .date.muted{color:#c1c6d4;background:#fcfdff}
+    .date:hover{background:#f3f7fb}
+    .date.selected{background:var(--primary);color:#fff}
+
+    /* Time slots */
+    .slots{border:1px solid var(--border);border-radius:12px;overflow:hidden;background:#fff;height:520px;display:flex;flex-direction:column}
+    .slots-header{padding:12px 16px;border-bottom:1px solid var(--border)}
+    .slots-body{padding:14px 16px;overflow:auto}
+    .slot-group{margin-bottom:14px}
+    .group-title{font-weight:700;color:#111827;margin:8px 0 10px}
+    .slot-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .slot{border:1px solid var(--border);border-radius:12px;padding:12px;line-height:1.3;font-weight:600;color:#111827;background:#fff;cursor:pointer;display:flex;align-items:flex-start;gap:8px;min-height:64px}
+    .slot small{display:block;font-weight:500;color:#6b7280}
+    .slot:hover{background:#f5f8fc}
+    .slot.selected{border-color:#bff1e1;background:#e8fcf5;outline:2px solid #d9f7ee}
+
+    /* Forms */
+    .form-wrap{border:1px solid var(--border);border-radius:12px;background:#fff;max-height:520px;display:flex;flex-direction:column}
+    .form-body{padding:18px;overflow:auto}
+    .form-row{margin-bottom:16px}
+    label{display:block;font-weight:600;margin-bottom:8px}
+    .req{color:#ef4444}
+    input,select,textarea{width:100%;padding:14px;border:1px solid var(--border);border-radius:10px;background:#fff;font:inherit}
+    textarea{min-height:100px;resize:vertical}
+    .phone-group{display:flex;gap:10px}
+    .country{min-width:84px}
+
+    /* Footer actions */
+    .actions{display:flex;justify-content:flex-end;gap:12px;margin-top:18px}
+    .btn{border:1px solid var(--border);background:#fff;padding:12px 16px;border-radius:10px;cursor:pointer;font-weight:600}
+    .btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+    .btn:disabled{opacity:.6;cursor:not-allowed}
+    .btn.ghost{background:#fff}
+
+    /* Summary styling */
+    .summary-wrap{display:flex;flex-direction:column;align-items:center;text-align:center;padding:24px 8px}
+    .summary-illus{width:90px;height:90px;border-radius:14px;background:#eef7ff;display:grid;place-items:center;margin-bottom:12px;border:1px solid #dbe7f6}
+    .summary-illus span{font-size:42px}
+    .summary-title{font-size:20px;font-weight:800;margin:8px 0 4px}
+    .summary-sub{color:#6b7280;margin:0 0 18px}
+    .summary-name{font-weight:700;margin:0 0 22px}
+    .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:flex-start}
+    .summary-item{display:flex;flex-direction:column;gap:6px}
+    .summary-label{font-weight:700;color:#6b7280}
+    .summary-value{font-weight:700}
+    .divider{width:1px;background:var(--border);height:48px;margin:auto}
+
+    /* Hide steps */
+    [data-step]{display:none}
+    [data-step].active{display:block}
+
+    @media (max-width: 900px){.grid{grid-template-columns:1fr}.slots,.form-wrap{height:auto;max-height:none}.summary-grid{grid-template-columns:1fr}.divider{display:none}}
+    
+    /* =========================
+   RESPONSIVE FIXES
+========================= */
+
+/* Tablet */
+@media (max-width: 991px) {
+    .container {
+        max-width: 100%;
+        margin: 16px auto;
+        padding: 0 14px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .slots,
+    .form-wrap {
+        height: auto;
+        max-height: none;
+    }
+
+    .slots-body {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .stepper {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .step {
+        padding: 9px 10px;
+    }
+
+    .step .title {
+        font-size: 14px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+    body {
+        background: #f7f9fc;
+    }
+
+    .container {
+        margin: 10px auto;
+        padding: 0 10px;
+    }
+
+    .card {
+        padding: 16px;
+        margin-top: 14px;
+        border-radius: 10px;
+    }
+
+    .section-title {
+        font-size: 20px;
+        margin-bottom: 14px;
+    }
+
+    /* Stepper mobile */
+    .stepper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+
+    .spacer {
+        display: none;
+    }
+
+    .step {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .step .icon {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+
+    /* Calendar */
+    .cal-header {
+        padding: 10px 12px;
+    }
+
+    .cal-header h4 {
+        font-size: 16px;
+    }
+
+    .nav-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .dow {
+        font-size: 11px;
+        padding: 8px 0;
+    }
+
+    .date {
+        height: 46px;
+        font-size: 13px;
+    }
+
+    /* Time slots */
+    .slots {
+        height: auto;
+    }
+
+    .slot-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .slot {
+        min-height: auto;
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .group-title {
+        font-size: 15px;
+    }
+
+    /* Form fields */
+    .form-body {
+        padding: 14px;
+    }
+
+    input,
+    select,
+    textarea {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .phone-group {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .country {
+        width: 100%;
+        min-width: 100%;
+    }
+
+    /* Buttons */
+    .actions {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 14px;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 13px 14px;
+        font-size: 15px;
+    }
+
+    /* Summary */
+    .summary-wrap {
+        padding: 18px 6px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        width: 100%;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .summary-illus {
+        width: 72px;
+        height: 72px;
+    }
+
+    .summary-illus span {
+        font-size: 34px;
+    }
+
+    .summary-title {
+        font-size: 19px;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+    .card {
+        padding: 14px 12px;
+    }
+
+    .date {
+        height: 40px;
+        font-size: 12px;
+    }
+
+    .slot {
+        font-size: 13px;
+        border-radius: 10px;
+    }
+
+    .cal-header h4 {
+        font-size: 15px;
+    }
+
+    .step .title {
+        font-size: 13px;
+    }
+
+    .form-row {
+        margin-bottom: 13px;
+    }
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Stepper -->
+    <div class="stepper" id="stepper">
+      <div class="step active" data-step-index="1"><div class="icon">📅</div><div class="title">Date & Time</div></div>
+      <div class="spacer"></div>
+      <div class="step" data-step-index="2"><div class="icon">🧾</div><div class="title">Basic Details</div></div>
+      <div class="spacer"></div>
+      <div class="step" data-step-index="3"><div class="icon">✅</div><div class="title">Summary</div></div>
+    </div>
+
+    <!-- STEP 1: Date & Time -->
+    <section class="card active" data-step="1">
+      <h3 class="section-title">Date & Time</h3>
+      <div class="grid">
+        <!-- Calendar -->
+        <div class="calendar">
+          <div class="cal-header">
+            <button class="nav-btn" id="prevMonth" aria-label="Previous Month">◀</button>
+            <h4 id="monthLabel">Month YYYY</h4>
+            <button class="nav-btn" id="nextMonth" aria-label="Next Month">▶</button>
+          </div>
+          <div class="cal-grid" id="dow">
+            <div class="dow">Mon</div><div class="dow">Tue</div><div class="dow">Wed</div><div class="dow">Thu</div><div class="dow">Fri</div><div class="dow">Sat</div><div class="dow">Sun</div>
+          </div>
+          <div class="cal-grid" id="dates"></div>
+        </div>
+
+        <!-- Time Slots -->
+        <div class="slots">
+          <div class="slots-header"><h4 style="margin:0">Time Slot</h4></div>
+          <div class="slots-body" id="slotContainer">
+            <div class="slot-group">
+              <div class="group-title">Morning</div>
+              <div class="slot-row">
+                <div class="slot" data-time="09:00-09:30">09:00 am to 09:30<small>am</small></div>
+                <div class="slot" data-time="09:30-10:00">09:30 am to 10:00<small>am</small></div>
+                <div class="slot" data-time="10:00-10:30">10:00 am to 10:30<small>am</small></div>
+                <div class="slot" data-time="10:30-11:00">10:30 am to 11:00<small>am</small></div>
+                <div class="slot" data-time="11:00-11:30">11:00 am to 11:30<small>am</small></div>
+                <div class="slot" data-time="11:30-12:00">11:30 am to 12:00<small>pm</small></div>
+              </div>
+            </div>
+            <div class="slot-group">
+              <div class="group-title">Afternoon</div>
+              <div class="slot-row">
+                <div class="slot" data-time="12:00-12:30">12:00 pm to 12:30<small>pm</small></div>
+                <div class="slot" data-time="12:30-13:00">12:30 pm to 01:00<small>pm</small></div>
+                <div class="slot" data-time="13:00-13:30">01:00 pm to 01:30<small>pm</small></div>
+                <div class="slot" data-time="13:30-14:00">01:30 pm to 02:00<small>pm</small></div>
+                <div class="slot" data-time="14:00-14:30">02:00 pm to 02:30<small>pm</small></div>
+                <div class="slot" data-time="14:30-15:00">02:30 pm to 03:00<small>pm</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" id="back1" disabled>Back</button>
+        <button class="btn primary" id="next1" disabled>Next: Basic Details →</button>
+      </div>
+    </section>
+
+    <!-- STEP 2: Basic Details -->
+    <section class="card" data-step="2">
+      <h3 class="section-title">Basic Details</h3>
+      <div class="form-wrap">
+        <div class="form-body">
+          <form id="detailsForm" action="https://caremedbill.com/bookingappointment/submit" method="post">
+            <div class="form-row">
+              <label>Fullname <span class="req">*</span></label>
+              <input type="text" name="fullname" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-row">
+              <label>Zip Code <span class="req">*</span></label>
+              <input type="text" name="zip" placeholder="Enter your zipcode" required>
+            </div>
+            <div class="form-row">
+              <label>Email Address <span class="req">*</span></label>
+              <input type="email" name="email" placeholder="Enter your email address" required>
+            </div>
+            <div class="form-row">
+              <label>Phone Number <span class="req">*</span></label>
+              <div class="phone-group">
+                <select class="country" name="cc">
+                  <option value="+1">🇺🇸 +1</option>
+                  
+                </select>
+                <input type="tel" name="phone" placeholder="(201) 555-0123" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <label>Speciality <span class="req">*</span></label>
+              <input type="text" name="speciality" placeholder="Enter your specialities" required>
+            </div>
+            <div class="form-row">
+              <label>Notes</label>
+              <textarea name="notes" placeholder="Anything we should know?"></textarea>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="back2">← Go Back</button>
+        <button class="btn primary" id="next2">Next: Summary →</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: Summary -->
+    <section class="card" data-step="3">
+      <div class="summary-wrap">
+        <div class="summary-illus"><span>🧾</span></div>
+        <div class="summary-title">Summary</div>
+        <p class="summary-sub">Your appointment booking summary</p>
+        <div class="summary-name" id="summaryName">Customer Name</div>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <div class="summary-label">Service</div>
+            <div class="summary-value" id="summaryService">caremedbill</div>
+          </div>
+          <div class="divider"></div>
+          <div class="summary-item">
+            <div class="summary-label">Date & Time</div>
+            <div class="summary-value" id="summaryDateTime">—</div>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="back3">← Go Back</button>
+        <button class="btn primary" id="confirmBtn" type="button">Book Appointment</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // ===== Stepper control =====
+    let currentStep = 1;
+    const stepSections = document.querySelectorAll('[data-step]');
+    const stepper = document.getElementById('stepper');
+    function setStep(n){currentStep=n;stepSections.forEach(s=>s.classList.toggle('active', Number(s.dataset.step)===n));stepper.querySelectorAll('.step').forEach(s=>{s.classList.toggle('active', Number(s.dataset.stepIndex)===n)})}
+
+    // ===== Calendar =====
+    const monthLabel=document.getElementById('monthLabel');
+    const datesGrid=document.getElementById('dates');
+    const prevBtn=document.getElementById('prevMonth');
+    const nextBtn=document.getElementById('nextMonth');
+    let viewDate=new Date(2026,4,20); // Aug 6
+    let selectedDate=null; let selectedSlot=null;
+
+    function renderCalendar(){
+      datesGrid.innerHTML='';
+      const y=viewDate.getFullYear(); const m=viewDate.getMonth();
+      monthLabel.textContent=viewDate.toLocaleString('default',{month:'long'})+' '+y;
+      const first=new Date(y,m,1); let startDay=first.getDay(); startDay=(startDay===0)?7:startDay; // Monday first
+      const daysInMonth=new Date(y,m+1,0).getDate();
+      const prevMonthDays=new Date(y,m,0).getDate();
+      for(let i=1;i<startDay;i++){const d=document.createElement('div');d.className='date muted';d.textContent=prevMonthDays-(startDay-1-i);datesGrid.appendChild(d)}
+      for(let day=1;day<=daysInMonth;day++){const d=document.createElement('div');d.className='date';d.textContent=day;d.dataset.date=`${y}-${String(m+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;d.addEventListener('click',()=>selectDate(d));datesGrid.appendChild(d)}
+      const totalCells=datesGrid.children.length; const remainder=totalCells%7; if(remainder!==0){const trailing=7-remainder; for(let i=1;i<=trailing;i++){const d=document.createElement('div');d.className='date muted';d.textContent=i;datesGrid.appendChild(d)}}
+      if(selectedDate){[...datesGrid.querySelectorAll('.date')].forEach(el=>{if(el.dataset.date===selectedDate){el.classList.add('selected')}})}
+    }
+    function selectDate(el){datesGrid.querySelectorAll('.date').forEach(d=>d.classList.remove('selected'));if(!el.classList.contains('muted')){el.classList.add('selected');selectedDate=el.dataset.date;updateStep1Button()}}
+    prevBtn.addEventListener('click',()=>{viewDate.setMonth(viewDate.getMonth()-1);renderCalendar()});
+    nextBtn.addEventListener('click',()=>{viewDate.setMonth(viewDate.getMonth()+1);renderCalendar()});
+    renderCalendar();
+
+    // Slots
+    const slotEls=document.querySelectorAll('.slot');
+    slotEls.forEach(s=>s.addEventListener('click',()=>{slotEls.forEach(x=>x.classList.remove('selected'));s.classList.add('selected');selectedSlot=s.dataset.time;updateStep1Button()}));
+    function updateStep1Button(){document.getElementById('next1').disabled=!(selectedDate&&selectedSlot)}
+
+    // Navigation
+    document.getElementById('next1').addEventListener('click',()=>setStep(2));
+    document.getElementById('back2').addEventListener('click',()=>setStep(1));
+
+    const detailsForm=document.getElementById('detailsForm');
+    document.getElementById('next2').addEventListener('click',()=>{if(detailsForm.reportValidity()){buildSummary();setStep(3)}});
+    document.getElementById('back3').addEventListener('click',()=>setStep(2));
+
+    function to12h(t){ // t like "09:00"
+      const [H,M]=t.split(':').map(Number); const ampm=H>=12? 'pm':'am'; const h=((H+11)%12+1); return `${String(h).padStart(2,'0')}:${String(M).padStart(2,'0')} ${ampm}`;
+    }
+    function prettyDate(iso){const [y,m,d]=iso.split('-').map(Number); const dt=new Date(y,m-1,d); return dt.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
+
+    function buildSummary(){
+      const data=Object.fromEntries(new FormData(detailsForm).entries());
+      const [start,end]=selectedSlot.split('-');
+      const timeRange=`${to12h(start)} – ${to12h(end)}`; // en dash
+      document.getElementById('summaryName').textContent=data.fullname||'—';
+      document.getElementById('summaryService').textContent='caremedbill';
+      document.getElementById('summaryDateTime').textContent=`${prettyDate(selectedDate)}, ${timeRange}`;
+    }
+
+    const confirmBtn=document.getElementById('confirmBtn');
+
+    confirmBtn.addEventListener('click', async ()=>{
+      if(!selectedDate || !selectedSlot){
+        Swal.fire({icon:'error',title:'Missing date or time',text:'Please choose an appointment date and time slot first.'});
+        setStep(1);
+        return;
+      }
+
+      if(!detailsForm.reportValidity()){
+        setStep(2);
+        return;
+      }
+
+      const formData=new FormData(detailsForm);
+      formData.append('appointment_date', selectedDate);
+      formData.append('appointment_time', selectedSlot);
+      formData.append('service', 'caremedbill');
+
+      confirmBtn.disabled=true;
+      const originalText=confirmBtn.textContent;
+      confirmBtn.textContent='Submitting...';
+
+      try{
+        const response=await fetch(detailsForm.action,{
+          method:'POST',
+          body:formData,
+          headers:{'X-Requested-With':'XMLHttpRequest'}
+        });
+        const result=await response.json();
+
+        if(!response.ok || result.status!=='success'){
+          throw new Error(result.message || 'Something went wrong while saving your appointment.');
+        }
+
+        await Swal.fire({
+          icon:'success',
+          title:'Appointment booked',
+          text:result.message || 'Your appointment has been saved successfully.'
+        });
+
+        detailsForm.reset();
+        selectedDate=null;
+        selectedSlot=null;
+        datesGrid.querySelectorAll('.date').forEach(d=>d.classList.remove('selected'));
+        slotEls.forEach(x=>x.classList.remove('selected'));
+        updateStep1Button();
+        setStep(1);
+      }catch(error){
+        Swal.fire({
+          icon:'error',
+          title:'Booking failed',
+          text:error.message || 'Unable to save your appointment. Please try again.'
+        });
+      }finally{
+        confirmBtn.disabled=false;
+        confirmBtn.textContent=originalText;
+      }
+    });
+  </script>
+</body>
+</html>
+
