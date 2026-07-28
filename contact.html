@@ -1,39 +1,44 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Get In Touch | Care Medical Billing & Management Services</title>
-  <meta name="description" content="Get In Touch with Care Medical Billing & Management Services. Address: 7103 S Peek Road, Suite 520, Richmond, TX 77407. Phone: +1 888 865 5485. Email: info@caremedbill.com">
+  <title>Contact Us | Care Medical Billing & Management Services</title>
+  <meta name="description" content="Contact Care Medical Billing & Management Services. Address: 7103 S Peek Road, Suite 520, Richmond, TX 77407. Phone: +1 888 865 5485. Email: info@caremedbill.com">
   
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="assets/css/fontawesome.min.css">
-  <link rel="stylesheet" href="styles.css?v=17.0">
+  <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 
+  <!-- Ambient Light Orbs -->
+  <div class="ambient-orb ambient-orb-1"></div>
+  <div class="ambient-orb ambient-orb-2"></div>
+
   <!-- Top Executive Utility Bar -->
-  <div class="top-utility-bar">
+  <div style="background: #0b0726; color: #e2e8f0; border-bottom: 2px solid var(--accent-primary); padding: 0.65rem 0; font-size: 0.88rem; position: relative; z-index: 1001;">
     <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
       <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
-        <a href="tel:+18888655485"><i class="fas fa-phone-alt" style="color: #38bdf8;"></i> +1 888 865 5485</a>
-        <a href="mailto:info@caremedbill.com"><i class="fas fa-envelope" style="color: #38bdf8;"></i> info@caremedbill.com</a>
-        <span><i class="fas fa-map-marker-alt" style="color: #38bdf8;"></i> 7103 S Peek Road, Suite 520, Richmond, TX 77407</span>
+        <a href="tel:+18888655485" style="color: #e2e8f0; text-decoration: none; font-weight: 700;"><i class="fas fa-phone-alt" style="color: var(--accent-primary);"></i> +1 888 865 5485</a>
+        <a href="mailto:info@caremedbill.com" style="color: #e2e8f0; text-decoration: none; font-weight: 700;"><i class="fas fa-envelope" style="color: var(--accent-primary);"></i> info@caremedbill.com</a>
+        <span style="color: #cbd5e1; font-weight: 600;"><i class="fas fa-map-marker-alt" style="color: var(--accent-primary);"></i> 7103 S Peek Road, Suite 520, Richmond, TX 77407</span>
       </div>
-      <div style="display: flex; align-items: center; gap: 1.5rem; font-weight: 700;">
-        <span><i class="fas fa-award" style="color: #38bdf8;"></i> Over 15 Years Industry Experience</span>
+      <div style="color: #e2e8f0; font-weight: 700;">
+        <span><i class="fas fa-award" style="color: var(--accent-primary);"></i> Over 15 Years Industry Experience</span>
       </div>
     </div>
   </div>
 
-  <!-- Executive Navigation Header with Standalone Logo -->
+  <!-- Vertex Executive Navbar -->
   <header>
     <nav class="navbar">
       <a href="index.html" class="logo">
-        <img src="assets/img/logo.jpg" alt="CareMedBill Logo" class="logo-img">
+        <div class="logo-icon">C</div>
+        <span>CareMedBill</span>
       </a>
 
       <ul class="nav-links" id="navLinks">
@@ -41,54 +46,40 @@
         <li><a href="services.html">Services</a></li>
         <li><a href="specialities.html">Specialities</a></li>
         <li><a href="whyus.html">Why Us</a></li>
-        <li><a href="ccm.html">CCM & RPM</a></li>
-        <li><a href="about.html">About Us</a></li>
         <li><a href="getintouch.html" class="active">Get In Touch</a></li>
       </ul>
 
       <div class="nav-actions">
         <button class="vrtx-search-btn open-modal" title="Search / Request Audit"><i class="fas fa-search"></i></button>
-        <button class="theme-toggle" id="themeToggle" title="Switch Theme"><i class="fas fa-moon"></i></button>
-        <a href="bookingappointment.html" class="btn btn-primary" style="padding: 0.75rem 1.6rem; font-size: 0.92rem;">Free Audit</a>
+        <button class="theme-toggle" id="themeToggle" title="Toggle Theme">☀️</button>
+        <a href="bookingappointment.html" class="btn btn-primary">Book An Appointment</a>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">☰</button>
       </div>
     </nav>
   </header>
 
   <main>
-    <!-- FULL-WIDTH ANIMATED HERO BANNER FOR GET IN TOUCH (BEHIND TEXT) -->
-    <section class="hero-full-bg-container page-banner-hero">
-      
-      <div class="hero-bg-image-slider">
-        <img src="assets/img/hq_building.jpg" alt="CareMedBill Executive Campus" class="hero-bg-slide active">
-        <img src="assets/img/hq_dusk.jpg" alt="CareMedBill Twilight Campus" class="hero-bg-slide">
-      </div>
-
-      <div class="hero-overlay-gradient"></div>
-
-      <div class="container hero-content-layer">
-        <div style="max-width: 850px; margin: 0 auto; text-align: center;">
-          <div class="subtitle">Get In Touch</div>
-          <h1 class="gradient-text" style="font-size: clamp(2.8rem, 5vw, 4.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.7);">Get In Touch!</h1>
-          <p style="color: #f1f5f9 !important; font-size: 1.25rem; max-width: 750px; margin: 1rem auto 0; text-shadow: 0 3px 15px rgba(0,0,0,0.7);">We are committed to ensure your practice's financial health and administrative success.</p>
-        </div>
+    <!-- Page Header Banner -->
+    <section style="background: linear-gradient(135deg, #0b0726 0%, #120038 50%, #1a004d 100%); padding: 5rem 0; color: #ffffff; text-align: center; border-bottom: 2px solid var(--accent-primary);">
+      <div class="container">
+        <div class="subtitle" style="background: rgba(255, 87, 34, 0.15); color: #ff5722; border-color: #ff5722;">Contact Us</div>
+        <h1 class="gradient-text">Contact Our RCM Leadership</h1>
+        <p style="color: #cbd5e1; font-size: 1.2rem; max-width: 750px; margin: 1rem auto 0;">Reach out directly to our experienced team for answers to your billing questions, practice revenue audits, or credentialing support.</p>
       </div>
     </section>
 
     <!-- Main Contact Grid -->
     <section class="section">
       <div class="container">
-        <div class="grid-2-col" style="gap: 3rem; align-items: flex-start;">
+        <div style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 3.5rem; align-items: flex-start;" class="reveal-on-scroll">
           
-          <!-- Left Column: Live Site Contact Form -->
           <div class="card" style="padding: 3rem !important;">
-            <h2 style="margin-bottom: 1.5rem; color: var(--text-primary); font-size: 1.8rem;">Get In Touch!</h2>
+            <h2 style="margin-bottom: 1.5rem; color: #ffffff;">Get In Touch!</h2>
             
-            <form id="liveGetInTouchForm">
+            <form id="contactForm">
               <div style="display: grid; gap: 1.3rem;">
-                
                 <div>
-                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Select Subject *</label>
+                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; color: #ffffff;">Select Subject *</label>
                   <select required class="vrtx-select">
                     <option value="">Select Subject</option>
                     <option value="Make Appointment">Make Appointment</option>
@@ -99,117 +90,99 @@
                 </div>
 
                 <div>
-                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Full Name *</label>
+                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; color: #ffffff;">Full Name *</label>
                   <input type="text" required class="vrtx-select" placeholder="Your Name">
                 </div>
 
                 <div>
-                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Email Address *</label>
+                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; color: #ffffff;">Email Address *</label>
                   <input type="email" required class="vrtx-select" placeholder="Your Email">
                 </div>
 
                 <div>
-                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Phone Number *</label>
+                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; color: #ffffff;">Phone Number *</label>
                   <input type="tel" required class="vrtx-select" placeholder="Your Phone Number">
                 </div>
 
                 <div>
-                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Message</label>
+                  <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; color: #ffffff;">Message</label>
                   <textarea class="vrtx-select" rows="4" placeholder="Write your message..."></textarea>
                 </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 1.1rem; font-size: 1.05rem;">
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 1.2rem; font-size: 1.1rem;">
                   Book An Appointment <i class="fas fa-arrow-right"></i>
                 </button>
-
               </div>
             </form>
           </div>
 
-          <!-- Right Column: Live Site Contact Information Card -->
           <div style="display: grid; gap: 2rem;">
-            
-            <div class="card" style="padding: 2.5rem !important;">
-              <h2 style="margin-bottom: 1.8rem; color: var(--accent-primary); font-size: 1.65rem;">Contact Details</h2>
+            <div class="card" style="padding: 2.8rem !important;">
+              <h2 style="margin-bottom: 2rem; color: var(--accent-primary); font-size: 1.8rem;">Contact Details</h2>
 
-              <ul style="list-style: none; display: grid; gap: 1.8rem;">
-                
-                <li style="display: flex; gap: 1.2rem; align-items: flex-start;">
-                  <div class="card-icon" style="margin-bottom: 0 !important; width: 48px !important; height: 48px !important; font-size: 1.3rem !important;"><i class="fas fa-map-marker-alt"></i></div>
+              <ul style="list-style: none; display: grid; gap: 2rem;">
+                <li style="display: flex; gap: 1.3rem; align-items: flex-start;">
+                  <div style="width: 52px; height: 52px; border-radius: var(--radius-md); background: rgba(255,87,34,0.12); color: var(--accent-primary); border: 1.5px solid var(--accent-primary); display: grid; place-items: center; font-size: 1.3rem; flex-shrink: 0;">
+                    <i class="fas fa-map-marker-alt"></i>
+                  </div>
                   <div>
-                    <h3 style="margin: 0 0 0.3rem 0; font-size: 1.1rem;">Our Address</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.6; font-weight: 600; font-size: 0.95rem;">
+                    <h3 style="margin: 0 0 0.3rem 0; font-size: 1.15rem; color: #ffffff;">Our Address</h3>
+                    <p style="color: #cbd5e1; line-height: 1.6; font-weight: 600;">
                       7103 S Peek Road, Suite 520, Richmond, TX 77407
                     </p>
                   </div>
                 </li>
 
-                <li style="display: flex; gap: 1.2rem; align-items: center;">
-                  <div class="card-icon" style="margin-bottom: 0 !important; width: 48px !important; height: 48px !important; font-size: 1.3rem !important;"><i class="fas fa-phone-alt"></i></div>
+                <li style="display: flex; gap: 1.3rem; align-items: center;">
+                  <div style="width: 52px; height: 52px; border-radius: var(--radius-md); background: rgba(255,87,34,0.12); color: var(--accent-primary); border: 1.5px solid var(--accent-primary); display: grid; place-items: center; font-size: 1.3rem; flex-shrink: 0;">
+                    <i class="fas fa-phone-alt"></i>
+                  </div>
                   <div>
-                    <h3 style="margin: 0 0 0.3rem 0; font-size: 1.1rem;">Contact No.</h3>
-                    <a href="tel:+18888655485" style="color: var(--accent-primary); text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+                    <h3 style="margin: 0 0 0.3rem 0; font-size: 1.15rem; color: #ffffff;">Contact No.</h3>
+                    <a href="tel:+18888655485" style="color: var(--accent-primary); text-decoration: none; font-weight: 700; font-size: 1.1rem;">
                       +1 888 865 5485
                     </a>
                   </div>
                 </li>
 
-                <li style="display: flex; gap: 1.2rem; align-items: center;">
-                  <div class="card-icon" style="margin-bottom: 0 !important; width: 48px !important; height: 48px !important; font-size: 1.3rem !important;"><i class="fas fa-envelope"></i></div>
+                <li style="display: flex; gap: 1.3rem; align-items: center;">
+                  <div style="width: 52px; height: 52px; border-radius: var(--radius-md); background: rgba(255,87,34,0.12); color: var(--accent-primary); border: 1.5px solid var(--accent-primary); display: grid; place-items: center; font-size: 1.3rem; flex-shrink: 0;">
+                    <i class="fas fa-envelope"></i>
+                  </div>
                   <div>
-                    <h3 style="margin: 0 0 0.3rem 0; font-size: 1.1rem;">Email</h3>
-                    <a href="mailto:info@caremedbill.com" style="color: var(--accent-primary); text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+                    <h3 style="margin: 0 0 0.3rem 0; font-size: 1.15rem; color: #ffffff;">Email</h3>
+                    <a href="mailto:info@caremedbill.com" style="color: var(--accent-primary); text-decoration: none; font-weight: 700; font-size: 1.1rem;">
                       info@caremedbill.com
                     </a>
                   </div>
                 </li>
-
               </ul>
             </div>
 
-            <!-- Working Hours Box from Live Site -->
-            <div class="card" style="padding: 2.2rem !important; background: var(--bg-tertiary) !important;">
-              <h3 style="margin-bottom: 0.8rem; font-size: 1.25rem;">Working Hours</h3>
-              <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">Our team is available during business hours to support your billing, credentialing, and revenue cycle needs.</p>
-              <div style="display: grid; gap: 0.5rem; color: var(--text-secondary); font-size: 0.95rem;">
+            <div class="card" style="padding: 2.2rem !important;">
+              <h3 style="color: #ffffff; margin-bottom: 1rem; font-size: 1.3rem;">Working Hours</h3>
+              <p style="color: #cbd5e1; margin-bottom: 1rem; font-size: 0.95rem;">Our team is available during business hours to support your billing, credentialing, and revenue cycle needs.</p>
+              <div style="display: grid; gap: 0.5rem; color: #cbd5e1; font-size: 0.95rem;">
                 <div style="display: flex; justify-content: space-between;"><span>Monday - Tuesday:</span> <strong>9am - 6pm</strong></div>
                 <div style="display: flex; justify-content: space-between;"><span>Wednesday - Thursday:</span> <strong>9am - 6pm</strong></div>
                 <div style="display: flex; justify-content: space-between;"><span>Friday:</span> <strong>9am - 6pm</strong></div>
                 <div style="display: flex; justify-content: space-between; color: var(--accent-primary);"><span>Saturday - Sunday:</span> <strong>Closed</strong></div>
               </div>
             </div>
-
           </div>
 
         </div>
       </div>
     </section>
-
-    <!-- Newsletter Section Synchronized to Executive Light/Dark Card Theme -->
-    <section class="section" style="background: var(--bg-secondary);">
-      <div class="container">
-        <div class="newsletter-card reveal-on-scroll">
-          <div class="subtitle">Stay Informed</div>
-          <h2 style="margin-bottom: 1rem;">Subscribe For Practice Insights</h2>
-          <p style="color: var(--text-secondary); margin: 0 auto 2rem; font-size: 1.08rem; line-height: 1.75; max-width: 700px;">
-            Join healthcare leaders nationwide receiving executive updates on medical billing codes, CMS regulations, and practice cashflow optimizations.
-          </p>
-          <form id="newsletterFormTouch" style="display: flex; gap: 1rem; max-width: 580px; margin: 0 auto; flex-wrap: wrap;">
-            <input type="email" required placeholder="Enter your email address..." class="vrtx-select" style="flex: 1; min-width: 260px;">
-            <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Subscribe Now <i class="fas fa-paper-plane"></i></button>
-          </form>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <!-- Footer with Standalone Logo -->
   <footer class="main-footer">
     <div class="container">
       <div class="footer-grid">
         <div>
           <a href="index.html" class="logo" style="margin-bottom: 1.5rem;">
-            <img src="assets/img/logo.jpg" alt="CareMedBill Logo" class="logo-img">
+            <div class="logo-icon">C</div>
+            <span>CareMedBill</span>
           </a>
           <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 1.5rem;">
             Care Medical Billing & Management Services has been leading in the medical billing industry for almost 15 years by providing top-notch billing services and satisfying customer needs.
@@ -265,6 +238,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=17.0"></script>
+  <script src="script.js"></script>
 </body>
 </html>

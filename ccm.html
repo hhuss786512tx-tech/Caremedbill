@@ -1,1244 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CCM, RPM & PCM Growth Partner | Care Med Bill</title>
-  <meta name="description" content="Launch compliant CCM, RPM and PCM programs with patient enrollment, care coordination, documentation, billing support and revenue-focused reporting." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chronic Care (CCM) & Remote Patient Monitoring (RPM) | CareMedBill</title>
+  <meta name="description" content="Turn-key Chronic Care Management (CCM) and Remote Patient Monitoring (RPM) solutions to generate recurring monthly practice revenue streams.">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="styles.css?v=17.0">
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <style>
-    :root {
-      --primary: #0b5fff;
-      --primary-dark: #0646c8;
-      --secondary: #12b981;
-      --dark: #0f172a;
-      --muted: #64748b;
-      --light: #f8fafc;
-      --border: #e2e8f0;
-      --card: #ffffff;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --shadow: 0 20px 50px rgba(15, 23, 42, 0.10);
-      --radius: 24px;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      color: var(--dark);
-      background: linear-gradient(180deg, #f8fbff 0%, #ffffff 45%, #f8fafc 100%);
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-
-    .container {
-      width: min(1180px, calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .topbar {
-      background: #061736;
-      color: #dbeafe;
-      font-size: 14px;
-      padding: 10px 0;
-    }
-
-    .topbar .container {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      background: rgba(255, 255, 255, 0.88);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav {
-      height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      font-size: 20px;
-    }
-
-    .logo {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      display: grid;
-      place-items: center;
-      color: white;
-      font-weight: 900;
-      box-shadow: 0 12px 30px rgba(11, 95, 255, 0.25);
-    }
-
-    .menu {
-      display: flex;
-      gap: 24px;
-      align-items: center;
-      color: #334155;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border: 0;
-      border-radius: 999px;
-      padding: 14px 22px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s ease;
-      font-size: 15px;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      box-shadow: 0 14px 30px rgba(11, 95, 255, 0.28);
-    }
-
-    .btn-secondary {
-      background: #eaf7ff;
-      color: var(--primary-dark);
-      border: 1px solid #c7ddff;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-
-    .hero {
-      padding: 86px 0 70px;
-      overflow: hidden;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.04fr 0.96fr;
-      gap: 52px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      gap: 8px;
-      align-items: center;
-      padding: 8px 14px;
-      background: #ecfdf5;
-      color: #047857;
-      border: 1px solid #bbf7d0;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 800;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      font-size: clamp(42px, 6vw, 70px);
-      line-height: 0.98;
-      letter-spacing: -0.06em;
-      margin: 0 0 22px;
-    }
-
-    .highlight { color: var(--primary); }
-
-    .hero p {
-      font-size: 19px;
-      color: #475569;
-      max-width: 640px;
-      margin: 0 0 28px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-bottom: 28px;
-    }
-
-    .trust-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      max-width: 650px;
-    }
-
-    .trust-pill {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.05);
-      font-weight: 800;
-      font-size: 14px;
-    }
-
-    .hero-card {
-      position: relative;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 34px;
-      padding: 26px;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: -40px -40px auto auto;
-      width: 180px;
-      height: 180px;
-      background: radial-gradient(circle, rgba(18,185,129,0.26), transparent 70%);
-      z-index: -1;
-    }
-
-    .dashboard-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-
-    .status {
-      background: #dcfce7;
-      color: #047857;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 900;
-    }
-
-    .metric-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
-    }
-
-    .metric {
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 18px;
-    }
-
-    .metric small { color: var(--muted); font-weight: 700; }
-    .metric strong { display: block; font-size: 28px; margin-top: 6px; letter-spacing: -0.04em; }
-
-    .chart {
-      height: 190px;
-      margin: 18px 0;
-      border-radius: 22px;
-      background:
-        linear-gradient(180deg, rgba(11,95,255,0.08), rgba(18,185,129,0.04)),
-        repeating-linear-gradient(to right, transparent 0 62px, rgba(148,163,184,0.18) 63px),
-        repeating-linear-gradient(to top, transparent 0 46px, rgba(148,163,184,0.18) 47px);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid var(--border);
-    }
-
-    .chart svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    section { padding: 72px 0; }
-
-    .section-head {
-      max-width: 760px;
-      margin-bottom: 34px;
-    }
-
-    .section-head.center { text-align: center; margin: 0 auto 34px; }
-
-    h2 {
-      font-size: clamp(32px, 4vw, 48px);
-      line-height: 1.08;
-      letter-spacing: -0.045em;
-      margin: 0 0 14px;
-    }
-
-    .section-head p { color: #64748b; font-size: 18px; margin: 0; }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 26px;
-      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
-    }
-
-    .icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      font-size: 24px;
-      background: #eff6ff;
-      margin-bottom: 18px;
-    }
-
-    .card h3 { margin: 0 0 10px; font-size: 22px; letter-spacing: -0.02em; }
-    .card p { margin: 0; color: #64748b; }
-    .card ul { padding-left: 18px; color: #475569; margin-bottom: 0; }
-
-    .calculator-wrap {
-      display: grid;
-      grid-template-columns: 0.92fr 1.08fr;
-      gap: 28px;
-      align-items: stretch;
-    }
-
-    .calculator {
-      background: #071b3d;
-      color: white;
-      border-radius: 34px;
-      padding: 32px;
-      box-shadow: var(--shadow);
-    }
-
-    .calculator label {
-      display: flex;
-      justify-content: space-between;
-      font-weight: 800;
-      margin: 18px 0 8px;
-    }
-
-    input[type="range"] { width: 100%; }
-
-    .result-box {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 28px;
-      padding: 26px;
-      margin-top: 24px;
-    }
-
-    .result-box small { opacity: 0.85; font-weight: 800; }
-    .result-box strong { display: block; font-size: 44px; letter-spacing: -0.05em; line-height: 1; margin-top: 10px; }
-
-    .note {
-      font-size: 12px;
-      color: #cbd5e1;
-      margin-top: 14px;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 14px;
-      counter-reset: step;
-    }
-
-    .step {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 22px;
-      position: relative;
-    }
-
-    .step::before {
-      counter-increment: step;
-      content: counter(step);
-      display: grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background: var(--primary);
-      color: white;
-      font-weight: 900;
-      margin-bottom: 14px;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-      align-items: center;
-    }
-
-    .checklist {
-      display: grid;
-      gap: 12px;
-    }
-
-    .check {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 16px;
-      font-weight: 700;
-    }
-
-    .check span {
-      color: var(--secondary);
-      font-weight: 900;
-    }
-
-    .compliance {
-      background: linear-gradient(135deg, #061736, #0f2b66);
-      color: white;
-      border-radius: 38px;
-      padding: 44px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .compliance p { color: #dbeafe; }
-
-    .specialties {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-
-    .specialty {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      padding: 22px;
-    }
-
-    .faq {
-      display: grid;
-      gap: 14px;
-    }
-
-    details {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 18px 20px;
-    }
-
-    summary {
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    details p { color: #64748b; margin-bottom: 0; }
-
-    .cta {
-      text-align: center;
-      background: linear-gradient(135deg, var(--primary), #073a99);
-      color: white;
-      border-radius: 42px;
-      padding: 58px 28px;
-      box-shadow: var(--shadow);
-    }
-
-    .cta h2 { color: white; }
-    .cta p { color: #dbeafe; max-width: 720px; margin: 0 auto 24px; }
-
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-
-    .contact-form-wrap {
-      max-width: 860px;
-      margin: 24px auto 0;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 28px;
-      padding: 32px 32px 28px;
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
-    }
-
-    .contact-form-header p {
-      margin: 0 0 4px;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--muted);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .contact-form-header h2 {
-      margin: 0;
-      font-size: 28px;
-      letter-spacing: -0.03em;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin: 0 0 12px;
-    }
-
-    .contact-field {
-      margin-bottom: 12px;
-    }
-
-    .contact-field label,
-    .service-group > span {
-      display: block;
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 6px;
-      font-weight: 700;
-    }
-
-    .contact-input {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 13px 14px;
-      font: inherit;
-      color: var(--dark);
-      background: #fff;
-    }
-
-    .contact-input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(11, 95, 255, 0.12);
-    }
-
-    .service-group {
-      margin-bottom: 24px;
-    }
-
-    .service-options {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .service-option {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px 14px;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      cursor: pointer;
-      transition: background 0.15s ease, border-color 0.15s ease;
-    }
-
-    .service-option small {
-      font-size: 13px;
-      color: var(--muted);
-      margin-left: 6px;
-    }
-
-    .service-option.is-selected {
-      background: rgba(11, 95, 255, 0.06);
-      border-color: var(--primary);
-    }
-
-    .contact-submit {
-      width: 100%;
-      padding: 13px;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: opacity 0.15s ease, transform 0.15s ease;
-    }
-
-    .contact-submit:hover {
-      opacity: 0.9;
-      transform: translateY(-1px);
-    }
-
-    .contact-submit:disabled {
-      opacity: 0.65;
-      cursor: wait;
-      transform: none;
-    }
-
-    .contact-message {
-      display: none;
-      margin: 12px 0 0;
-      font-size: 13px;
-      text-align: center;
-    }
-
-    .contact-message.is-error { color: var(--danger); }
-    .contact-message.is-success { color: #047857; }
-
-    footer {
-      background: #061736;
-      color: #bfdbfe;
-      padding: 36px 0;
-      margin-top: 70px;
-    }
-
-    .footer-grid {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-
-    .disclaimer {
-      font-size: 12px;
-      color: #64748b;
-      background: #f8fafc;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 16px;
-      margin-top: 22px;
-    }
-
-    @media (max-width: 920px) {
-      .menu { display: none; }
-      .hero-grid, .calculator-wrap, .split { grid-template-columns: 1fr; }
-      .cards, .specialties { grid-template-columns: 1fr 1fr; }
-      .steps { grid-template-columns: 1fr 1fr; }
-      .trust-row { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 620px) {
-      .container { width: min(100% - 24px, 1180px); }
-      .cards, .specialties, .steps, .metric-grid { grid-template-columns: 1fr; }
-      .hero { padding-top: 54px; }
-      .calculator, .compliance { padding: 24px; border-radius: 26px; }
-      .result-box strong { font-size: 36px; }
-      .topbar .container { font-size: 12px; }
-      .contact-form-wrap { padding: 24px; border-radius: 24px;max-width: 560px; }
-      .contact-grid { grid-template-columns: 1fr; }
-    }
-  </style>
-
-
-
 </head>
 <body>
-  <div class="topbar">
-    <div class="container">
-      <div>Modern CCM • RPM • PCM growth programs for US medical practices</div>
-      <div>Call: <strong>+1 888-227-3713</strong> | Email: <strong>info@caremedbill.com</strong></div>
+
+  <!-- Top Executive Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+        <a href="tel:+18888655485"><i class="fas fa-phone-alt" style="color: #38bdf8;"></i> +1 888 865 5485</a>
+        <a href="mailto:info@caremedbill.com"><i class="fas fa-envelope" style="color: #38bdf8;"></i> info@caremedbill.com</a>
+        <span><i class="fas fa-map-marker-alt" style="color: #38bdf8;"></i> 7103 S Peek Road, Suite 520, Richmond, TX 77407</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1.5rem; font-weight: 700;">
+        <span><i class="fas fa-heartbeat" style="color: #38bdf8;"></i> Recurring Care Management Reimbursement</span>
+      </div>
     </div>
   </div>
 
+  <!-- Executive Navigation Header with Standalone Logo -->
   <header>
-    <div class="container nav">
-      <a href="index.html"><img src="assets/CareMedicalBillingtoCareManagement.png" alt="Mediax"></a>
-      <nav class="menu" aria-label="Main navigation">
-        <a href="index.html">Services</a>
-        <a href="index.html">ROI Calculator</a>
-        <a href="index.html">Process</a>
-        <a href="index.html">Compliance</a>
-        <a href="index.html" class="btn btn-primary">Book Strategy Call</a>
-      </nav>
-    </div>
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.jpg" alt="CareMedBill Logo" class="logo-img">
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="specialities.html">Specialities</a></li>
+        <li><a href="whyus.html">Why Us</a></li>
+        <li><a href="ccm.html" class="active">CCM & RPM</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="getintouch.html">Get In Touch</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="vrtx-search-btn open-modal" title="Search / Request Audit"><i class="fas fa-search"></i></button>
+        <button class="theme-toggle" id="themeToggle" title="Switch Theme"><i class="fas fa-moon"></i></button>
+        <a href="bookingappointment.html" class="btn btn-primary" style="padding: 0.75rem 1.6rem; font-size: 0.92rem;">Free Audit</a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </nav>
   </header>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div>
-          <div class="eyebrow">✓ Fully Managed Care Programs</div>
-          <h1>Launch CCM, RPM & PCM programs that create <span class="highlight">recurring clinical revenue.</span></h1>
-          <p>We help practices identify eligible patients, enroll them, coordinate care, document encounters, support billing, and track performance — without adding operational burden to your staff.</p>
-          <div class="hero-actions">
-            <a href="index.html" class="btn btn-primary">Calculate Your ROI</a>
-            <a href="index.html" class="btn btn-secondary">Get Free Program Review</a>
-          </div>
-          <div class="trust-row">
-            <div class="trust-pill">HIPAA-focused workflows</div>
-            <div class="trust-pill">CMS-aligned documentation</div>
-            <div class="trust-pill">Audit-ready reporting</div>
-          </div>
-        </div>
+  <main>
+    <!-- FULL-WIDTH ANIMATED HERO BANNER FOR CCM & RPM (BEHIND TEXT) -->
+    <section class="hero-full-bg-container page-banner-hero">
+      <div class="hero-bg-image-slider">
+        <img src="assets/img/light_surgery.jpg" alt="CareMedBill RPM Monitoring" class="hero-bg-slide active">
+        <img src="assets/img/hq_dusk.jpg" alt="CareMedBill Command Center" class="hero-bg-slide">
+      </div>
 
-        <div class="hero-card" aria-label="Program performance dashboard preview">
-          <div class="dashboard-header">
-            <strong>Program Growth Dashboard</strong>
-            <span class="status">Active</span>
-          </div>
-          <div class="metric-grid">
-            <div class="metric"><small>Eligible Patients</small><strong>420</strong></div>
-            <div class="metric"><small>Projected Monthly Revenue</small><strong>$42K</strong></div>
-            <div class="metric"><small>Enrollment Goal</small><strong>150</strong></div>
-            <div class="metric"><small>Clinic Staff Added</small><strong>0</strong></div>
-          </div>
-          <div class="chart">
-            <svg viewBox="0 0 520 190" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0 150 C75 130 90 128 145 105 C210 78 220 90 280 66 C355 37 385 58 440 34 C480 18 500 20 520 14" fill="none" stroke="#0b5fff" stroke-width="8" stroke-linecap="round" />
-              <path d="M0 164 C80 150 110 146 170 130 C230 112 260 114 320 92 C380 72 425 76 520 44" fill="none" stroke="#12b981" stroke-width="8" stroke-linecap="round" opacity="0.85" />
-            </svg>
-          </div>
-          <div class="checklist">
-            <div class="check"><span>✓</span> Patient enrollment and consent support</div>
-            <div class="check"><span>✓</span> Care coordinator notes and monthly follow-up</div>
-            <div class="check"><span>✓</span> Billing support and performance reporting</div>
-          </div>
+      <div class="hero-overlay-gradient"></div>
+
+      <div class="container hero-content-layer">
+        <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+          <div class="subtitle">Recurring Practice Income</div>
+          <h1 class="gradient-text" style="font-size: clamp(2.8rem, 5vw, 4.5rem); text-shadow: 0 4px 20px rgba(0,0,0,0.7);">CCM & Remote Patient Monitoring</h1>
+          <p style="color: #f1f5f9 !important; font-size: 1.25rem; max-width: 800px; margin: 1rem auto 0; text-shadow: 0 3px 15px rgba(0,0,0,0.7);">
+            Expand patient care beyond clinical visits while establishing substantial, consistent monthly Medicare reimbursement streams.
+          </p>
         </div>
       </div>
     </section>
 
-    <section id="services">
+    <!-- Dual-Side Image Feature Reveal -->
+    <section class="section" style="padding: 4.5rem 0 2rem;">
       <div class="container">
-        <div class="section-head center">
-          <h2>One partner for CCM, RPM and PCM.</h2>
-          <p>Simple programs for practices that want better patient engagement, cleaner documentation and new monthly revenue opportunities.</p>
-        </div>
-        <div class="cards">
+        <div class="grid-2-col" style="gap: 2.5rem;">
+          
+          <div class="bass-reveal-left">
+            <div class="bass-img-card" style="height: 360px;">
+              <img src="assets/img/hq_building.jpg" alt="Richmond Headquarters Facility" class="parallax-img" data-speed="0.2">
+              <div style="position: absolute; bottom: 0; inset-x: 0; background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.88) 100%); padding: 1.8rem; color: #ffffff;">
+                <h3 style="color: #ffffff; margin: 0; font-family: var(--font-heading);">Executive Command Headquarters</h3>
+              </div>
+            </div>
+          </div>
 
-  <!-- CCM -->
-  <article class="card">
-    <div class="icon">
-      <!-- Heart Pulse Icon -->
-        <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <!-- Left patient -->
-          <circle cx="8" cy="8" r="3"></circle>
-          <path d="M3 20c0-3 2-5 5-5s5 2 5 5"></path>
+          <div class="bass-reveal-right">
+            <div class="bass-img-card" style="height: 360px;">
+              <img src="assets/img/hq_dusk.jpg" alt="24/7 RPM Operations Center" class="parallax-img" data-speed="0.2">
+              <div style="position: absolute; bottom: 0; inset-x: 0; background: linear-gradient(180deg, transparent 0%, rgba(15, 23, 42, 0.88) 100%); padding: 1.8rem; color: #ffffff;">
+                <h3 style="color: #ffffff; margin: 0; font-family: var(--font-heading);">24/7 Cellular Device Monitoring</h3>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: Program Details -->
+    <section class="section">
+      <div class="container">
         
-          <!-- Right patient -->
-          <circle cx="16" cy="8" r="3"></circle>
-          <path d="M11 20c0-3 2-5 5-5s5 2 5 5"></path>
-        </svg>
-    </div>
-    <h3>CCM</h3>
-    <p>Chronic Care Management for Medicare patients with multiple chronic conditions requiring ongoing monthly care coordination.</p>
-    <ul>
-      <li>Patient outreach</li>
-      <li>Monthly care calls</li>
-      <li>Care plan documentation</li>
-    </ul>
-  </article>
-
-  <!-- RPM -->
-  <article class="card">
-    <div class="icon">
-      <!-- Monitor / Device Icon -->
-      <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M3 12h4l3-8 4 16 3-8h4"></path>
-      </svg>
-    </div>
-    <h3>RPM</h3>
-    <p>Remote Patient Monitoring support for device setup, patient education, readings review and monitoring documentation.</p>
-    <ul>
-      <li>Device onboarding</li>
-      <li>Reading reminders</li>
-      <li>Clinical escalation workflow</li>
-    </ul>
-  </article>
-
-  <!-- PCM -->
-  <article class="card">
-    <div class="icon">
-      <!-- Stethoscope Icon -->
-      <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M6 3v5a4 4 0 0 0 8 0V3"></path>
-        <path d="M12 14a6 6 0 0 0 6 6"></path>
-        <circle cx="18" cy="20" r="2"></circle>
-      </svg>
-    </div>
-    <h3>PCM</h3>
-    <p>Principal Care Management for specialists managing one serious chronic condition that requires focused follow-up.</p>
-    <ul>
-      <li>Specialty-focused care</li>
-      <li>Disease-specific plans</li>
-      <li>Provider-approved protocols</li>
-    </ul>
-  </article>
-
-</div>
-      </div>
-    </section>
-    
-    
-    <section id="contact">
-      <div class="container">
-        <div class="cta">
-          <h2>Ready to turn eligible patients into a managed care revenue program?</h2>
-          <p>Get a free program review, patient eligibility estimate and launch plan for CCM, RPM or PCM.</p>
-          <a class="btn btn-secondary" href="index.html">Book Free Strategy Call</a>
-        </div>
-      </div>
-    </section>
-
-   <section id="roi">
-      <div class="container calculator-wrap">
-        <div class="section-head">
-          <h2>See the revenue opportunity in seconds.</h2>
-          <p>This calculator is designed for sales calls and landing page conversions. Keep rates conservative and final billing subject to payer rules, eligibility and medical necessity.</p>
-          <div class="disclaimer">
-            Important: Estimates are for marketing and planning only. Actual reimbursement depends on payer, locality, documentation, patient eligibility, provider supervision, medical necessity and current CMS/payer rules.
-          </div>
-        </div>
-    
-        <div class="calculator">
-          <h3 style="margin-top:0;font-size:26px;">Monthly ROI Calculator</h3>
-    
-          <label>Enrolled CCM/PCM Patients <span id="ccmValue">100</span></label>
-          <input id="ccmPatients" type="range" min="25" max="500" step="5" value="100" />
-    
-          <label>Enrolled RPM Patients <span id="rpmValue">50</span></label>
-          <input id="rpmPatients" type="range" min="0" max="400" step="5" value="50" />
-    
-          <div class="result-box">
-            <small>Estimated clinic monthly program revenue</small>
-            <strong id="revenueResult">$13,800</strong>
-          </div>
-    
-          <div class="note">
-            Uses conservative sample values: CCM/PCM $70 average and RPM $136 average gross monthly program estimate.
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container split">
-        <div>
-          <div class="section-head">
-            <h2>We handle the heavy lifting.</h2>
-            <p>Your practice stays focused on clinical care while our team manages the operational workflow.</p>
-          </div>
-        </div>
-        <div class="checklist">
-          <div class="check"><span>✓</span> Eligibility list review and patient targeting</div>
-          <div class="check"><span>✓</span> Patient enrollment, consent and education</div>
-          <div class="check"><span>✓</span> Bilingual care coordinator outreach</div>
-          <div class="check"><span>✓</span> Monthly notes, encounter support and care plan updates</div>
-          <div class="check"><span>✓</span> Billing support, denial follow-up and reporting</div>
-          <div class="check"><span>✓</span> Practice dashboard and monthly performance review</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="process">
-      <div class="container">
-        <div class="section-head center">
-          <h2>Clear launch process. Fast implementation.</h2>
-          <p>Designed to help clinics start without confusion, extra hiring or complicated workflows.</p>
-        </div>
-        <div class="steps">
-          <div class="step"><strong>Analyze</strong><br />Review patient base and identify eligible opportunities.</div>
-          <div class="step"><strong>Enroll</strong><br />Contact patients, explain benefits and collect consent.</div>
-          <div class="step"><strong>Coordinate</strong><br />Complete monthly calls, monitoring and care coordination.</div>
-          <div class="step"><strong>Document</strong><br />Generate care notes and maintain audit-ready records.</div>
-          <div class="step"><strong>Bill & Report</strong><br />Support claims, follow-up and monthly revenue tracking.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="compliance">
-  <div class="container compliance">
-    <div class="section-head">
-      <h2 style="color:#FFF;">Compliance-first messaging that builds trust.</h2>
-      <p style="color:#FFF;">Programs are built around provider oversight, patient consent, payer rules, secure workflows and documentation discipline.</p>
-    </div>
-
-    <div class="cards">
-
-      <!-- HIPAA -->
-      <div class="card">
-        <div class="icon">
-          <!-- Shield Lock -->
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#000" stroke-width="2">
-            <path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7l7-4z"></path>
-            <rect x="9" y="11" width="6" height="5" rx="1"></rect>
-            <path d="M12 11v-2"></path>
-          </svg>
-        </div>
-        <h3 style="color:#000;">HIPAA-Focused</h3>
-        <p style="color:#000;">Secure communication standards, limited access and privacy-conscious care coordination processes.</p>
-      </div>
-
-      <!-- Documentation -->
-      <div class="card">
-        <div class="icon">
-          <!-- Clipboard -->
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#000" stroke-width="2">
-            <rect x="9" y="2" width="6" height="4" rx="1"></rect>
-            <path d="M9 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3"></path>
-          </svg>
-        </div>
-        <h3 style="color:#000;">Documentation Driven</h3>
-        <p style="color:#000;">Care notes, time logs, consent tracking and program activity records prepared for review.</p>
-      </div>
-
-      <!-- Provider Controlled -->
-      <div class="card">
-        <div class="icon">
-          <!-- Balance Scale -->
-          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#000" stroke-width="2">
-            <path d="M12 3v18"></path>
-            <path d="M5 7h14"></path>
-            <path d="M7 7l-3 6h6l-3-6z"></path>
-            <path d="M17 7l-3 6h6l-3-6z"></path>
-          </svg>
-        </div>
-        <h3 style="color:#000;">Provider Controlled</h3>
-        <p style="color:#000;">Clinical decisions remain with licensed providers. Our role is support, coordination and administrative execution.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-    <section>
-      <div class="container">
-        <div class="section-head center">
-          <h2>Built for high-eligibility specialties.</h2>
-          <p>Position your program around the specialties most likely to benefit from ongoing care management.</p>
-        </div>
-        <div class="specialties">
-          <div class="specialty"><strong>Primary Care</strong><br /><span>Diabetes, hypertension, CHF, COPD and multi-condition patients.</span></div>
-          <div class="specialty"><strong>Nephrology</strong><br /><span>CKD, ESRD, hypertension, diabetes and high-touch care needs.</span></div>
-          <div class="specialty"><strong>Cardiology</strong><br /><span>CHF, hypertension, post-discharge monitoring and adherence support.</span></div>
-          <div class="specialty"><strong>Internal Medicine</strong><br /><span>Large Medicare panels with multiple chronic condition profiles.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="container split">
-        <div>
-          <div class="section-head">
-            <h2>Frequently asked questions</h2>
-            <p>Answer objections before the sales call. This improves trust and lead quality.</p>
-          </div>
-        </div>
-        <div class="faq">
-          <details open>
-            <summary>Will this add work for our clinic staff?</summary>
-            <p>The goal is to reduce staff burden. We manage enrollment, care coordination support, documentation workflow and reporting while your providers maintain clinical oversight.</p>
-          </details>
-          <details>
-            <summary>Can you guarantee reimbursement?</summary>
-            <p>No. Reimbursement depends on eligibility, payer policy, documentation, medical necessity and current rules. We support clean workflows and billing discipline, but we do not guarantee payment.</p>
-          </details>
-          <details>
-            <summary>Do providers remain responsible for clinical decisions?</summary>
-            <p>Yes. Providers remain responsible for diagnoses, treatment decisions, clinical judgment and patient care. Our team supports administrative and care coordination workflows.</p>
-          </details>
-          <details>
-            <summary>How quickly can a practice launch?</summary>
-            <p>Most practices can begin once patient lists, workflows, consent scripts, documentation templates and provider-approved protocols are ready.</p>
-          </details>
-        </div>
-      </div>
-    </section>
-
-    
-
-    <section>
-      <div class="container" id="contactbooking">
-        <h2 class="sr-only">Contact form for Care Med Bill — request a strategy call</h2>
-
-        <form id="contactForm" class="contact-form-wrap" novalidate>
-          <div class="contact-form-header" style="margin-bottom:1.5rem;">
-            <p>Get started</p>
-            <h2>Book a free strategy call</h2>
+        <div class="grid-2-col" style="gap: 2.5rem; margin-bottom: 4rem;">
+          
+          <div class="card reveal-on-scroll">
+            <div class="card-icon"><i class="fas fa-user-nurse"></i></div>
+            <h2>Chronic Care Management <span class="gradient-text">(CCM)</span></h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
+              CCM provides ongoing care coordination for Medicare patients with two or more chronic conditions. CareMedBill provides turn-key clinical documentation tracking to support CPT 99490 billing.
+            </p>
+            <ul style="color: var(--text-secondary); list-style: none; display: grid; gap: 0.8rem;">
+              <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Average <strong>$62+ per enrolled patient/mo</strong></li>
+              <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Turn-key patient consent & care plan tracking</li>
+              <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> 20 minutes monthly non-face-to-face care management</li>
+            </ul>
           </div>
 
-          <input type="hidden" name="source_page" value="care.html" />
-
-          <div class="contact-grid">
-            <div class="contact-field">
-              <label for="fname">First name</label>
-              <input class="contact-input" id="fname" name="first_name" type="text" placeholder="Jane" autocomplete="given-name" required />
-            </div>
-            <div class="contact-field">
-              <label for="lname">Last name</label>
-              <input class="contact-input" id="lname" name="last_name" type="text" placeholder="Smith" autocomplete="family-name" required />
-            </div>
+          <div class="card reveal-on-scroll">
+            <div class="card-icon"><i class="fas fa-heartbeat"></i></div>
+            <h2>Remote Patient Monitoring <span class="gradient-text">(RPM)</span></h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;">
+              RPM enables daily transmission of patient physiological vitals (blood pressure, glucose, weight) via pre-configured cellular devices without Wi-Fi requirements.
+            </p>
+            <ul style="color: var(--text-secondary); list-style: none; display: grid; gap: 0.8rem;">
+              <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Average <strong>$120+ per enrolled patient/mo</strong></li>
+              <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Turn-key cellular device logistics & shipping</li>
+              <li><i class="fas fa-check-circle" style="color: var(--accent-primary);"></i> Automatic CPT 99453, 99454, 99457 claim scrubbing</li>
+            </ul>
           </div>
 
-          <div class="contact-field">
-            <label for="email">Email address</label>
-            <input class="contact-input" id="email" name="email" type="email" placeholder="jane@clinic.com" autocomplete="email" required />
-          </div>
+        </div>
 
-          <div class="contact-field">
-            <label for="phone">Phone number</label>
-            <input class="contact-input" id="phone" name="phone" type="tel" placeholder="+1 (832) 000-0000" autocomplete="tel" required />
-          </div>
-          <div class="contact-field">
-            <label for="specialist">Specialist</label>
-            <input class="contact-input" id="specialist" name="specialist" type="text" placeholder="specialist" autocomplete="specialist" required />
-          </div>
-
-          <div class="service-group">
-            <span>Services interested in</span>
-            <div class="service-options">
-              <label id="lbl-ccm" class="service-option">
-                <input type="checkbox" id="chk-ccm" name="services[]" value="CCM" style="width:16px;height:16px;accent-color:#0b5fff;flex-shrink:0;" />
-                <div>
-                  <strong style="font-size:14px;font-weight:700;color:var(--dark);">CCM</strong>
-                  <small>Chronic Care Management</small>
-                </div>
-              </label>
-              <label id="lbl-rpm" class="service-option">
-                <input type="checkbox" id="chk-rpm" name="services[]" value="RPM" style="width:16px;height:16px;accent-color:#0b5fff;flex-shrink:0;" />
-                <div>
-                  <strong style="font-size:14px;font-weight:700;color:var(--dark);">RPM</strong>
-                  <small>Remote Patient Monitoring</small>
-                </div>
-              </label>
-              <label id="lbl-pcm" class="service-option">
-                <input type="checkbox" id="chk-pcm" name="services[]" value="PCM" style="width:16px;height:16px;accent-color:#0b5fff;flex-shrink:0;" />
-                <div>
-                  <strong style="font-size:14px;font-weight:700;color:var(--dark);">PCM</strong>
-                  <small>Principal Care Management</small>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <button id="contactSubmitBtn" class="contact-submit" type="submit">Book free strategy call</button>
-          <p id="msg" class="contact-message" aria-live="polite"></p>
-        </form>
       </div>
     </section>
   </main>
 
-  <footer>
-    <div class="container footer-grid">
-      <div>
-        <strong>Care Med Bill</strong><br />CCM • RPM • PCM Program Support
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="logo" style="margin-bottom: 1.5rem;">
+            <img src="assets/img/logo.jpg" alt="CareMedBill Logo" class="logo-img">
+          </a>
+          <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 1.5rem;">
+            Care Medical Billing & Management Services has been leading in the medical billing industry for almost 15 years by providing top-notch billing services and satisfying customer needs.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Quick Links</h4>
+          <ul style="list-style: none; display: grid; gap: 0.8rem;">
+            <li><a href="index.html" style="color: #cbd5e1; text-decoration: none;">Home</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Services</a></li>
+            <li><a href="specialities.html" style="color: #cbd5e1; text-decoration: none;">Specialities</a></li>
+            <li><a href="whyus.html" style="color: #cbd5e1; text-decoration: none;">Why Us</a></li>
+            <li><a href="getintouch.html" style="color: #cbd5e1; text-decoration: none;">Get In Touch</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Popular service</h4>
+          <ul style="list-style: none; display: grid; gap: 0.8rem;">
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Medical Billing</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Insurance Verification</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Account Receivable</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Credentialing</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">MIPS Compliance</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Our Address</h4>
+          <ul style="list-style: none; display: grid; gap: 1rem;">
+            <li style="display: flex; gap: 0.8rem; align-items: flex-start; color: #cbd5e1;">
+              <i class="fas fa-map-marker-alt" style="color: var(--accent-primary); margin-top: 0.2rem;"></i>
+              <span>7103 S Peek Road, Suite 520, Richmond, TX 77407</span>
+            </li>
+            <li style="display: flex; gap: 0.8rem; align-items: center; color: #cbd5e1;">
+              <i class="fas fa-envelope" style="color: var(--accent-primary);"></i>
+              <a href="mailto:info@caremedbill.com" style="color: #cbd5e1; text-decoration: none;">info@caremedbill.com</a>
+            </li>
+            <li style="display: flex; gap: 0.8rem; align-items: center; color: #cbd5e1;">
+              <i class="fas fa-phone-alt" style="color: var(--accent-primary);"></i>
+              <a href="tel:+18888655485" style="color: #cbd5e1; text-decoration: none;">+1 888 865 5485</a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div>
-        Phone: +1 888-227-3713<br />Website: www.caremedbill.com
-      </div>
-      <div>
-        HIPAA-focused | CMS-aligned | Provider-led care
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+        Copyright 2026 Care Medical Billing & Management Services . All Rights Reserved.
       </div>
     </div>
   </footer>
 
-  <script>
-    const ccmPatients = document.getElementById('ccmPatients');
-    const rpmPatients = document.getElementById('rpmPatients');
-    const share = document.getElementById('share');
-    const ccmValue = document.getElementById('ccmValue');
-    const rpmValue = document.getElementById('rpmValue');
-    const shareValue = document.getElementById('shareValue');
-    const revenueResult = document.getElementById('revenueResult');
-
-    function formatCurrency(value) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        maximumFractionDigits: 0
-      }).format(value);
-    }
-
-   function updateCalculator() {
-      const ccm = Number(ccmPatients.value);
-      const rpm = Number(rpmPatients.value);
-    
-      const estimatedCcmRate = 70;
-      const estimatedRpmRate = 136;
-    
-      const total = (ccm * estimatedCcmRate) + (rpm * estimatedRpmRate);
-    
-      ccmValue.textContent = ccm;
-      rpmValue.textContent = rpm;
-    
-      revenueResult.textContent = formatCurrency(total);
-    }
-    
-    // Remove share completely from listeners
-    [ccmPatients, rpmPatients].forEach(input =>
-      input.addEventListener('input', updateCalculator)
-    );
-    
-    updateCalculator();
-
-    function toggleServiceOption(labelId, checkboxId) {
-      const label = document.getElementById(labelId);
-      const checkbox = document.getElementById(checkboxId);
-      if (!label || !checkbox) return;
-      label.classList.toggle('is-selected', checkbox.checked);
-    }
-
-    function showContactMessage(type, text) {
-      const msg = document.getElementById('msg');
-      if (!msg) return;
-      msg.style.display = 'block';
-      msg.className = `contact-message ${type === 'error' ? 'is-error' : 'is-success'}`;
-      msg.textContent = text;
-    }
-
-    const servicePairs = [
-      ['lbl-ccm', 'chk-ccm'],
-      ['lbl-rpm', 'chk-rpm'],
-      ['lbl-pcm', 'chk-pcm']
-    ];
-
-    servicePairs.forEach(([labelId, checkboxId]) => {
-      const checkbox = document.getElementById(checkboxId);
-      if (!checkbox) return;
-      checkbox.addEventListener('change', () => toggleServiceOption(labelId, checkboxId));
-    });
-
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const submitButton = document.getElementById('contactSubmitBtn');
-        const firstName = document.getElementById('fname').value.trim();
-        const lastName = document.getElementById('lname').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const phone = document.getElementById('phone').value.trim();
-        const selectedServices = servicePairs
-          .filter(([, checkboxId]) => document.getElementById(checkboxId).checked)
-          .map(([, checkboxId]) => document.getElementById(checkboxId).value);
-
-        if (!firstName || !lastName || !email || !phone) {
-          showContactMessage('error', 'Please fill in all fields.');
-          Swal.fire({ icon: 'error', title: 'Missing fields', text: 'Please fill in all fields.', confirmButtonColor: '#0b5fff' });
-          return;
-        }
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          showContactMessage('error', 'Please enter a valid email address.');
-          Swal.fire({ icon: 'error', title: 'Invalid email', text: 'Please enter a valid email address.', confirmButtonColor: '#0b5fff' });
-          return;
-        }
-
-        if (selectedServices.length === 0) {
-          showContactMessage('error', 'Please select at least one service.');
-          Swal.fire({ icon: 'error', title: 'Select a service', text: 'Please select at least one service.', confirmButtonColor: '#0b5fff' });
-          return;
-        }
-
-        try {
-          submitButton.disabled = true;
-          submitButton.textContent = 'Sending...';
-
-          const response = await fetch('submit_contact.php', {
-            method: 'POST',
-            body: new FormData(contactForm)
-          });
-
-          const result = await response.json();
-
-          if (!response.ok || !result.success) {
-            throw new Error(result.message || 'Something went wrong while sending your request.');
-          }
-
-          showContactMessage('success', result.message);
-          await Swal.fire({
-            icon: 'success',
-            title: 'Request sent',
-            text: result.message,
-            confirmButtonColor: '#0b5fff'
-          });
-
-          contactForm.reset();
-          servicePairs.forEach(([labelId]) => {
-            const label = document.getElementById(labelId);
-            if (label) label.classList.remove('is-selected');
-          });
-        } catch (error) {
-          const errorMessage = error.message || 'Unable to send your request right now.';
-          showContactMessage('error', errorMessage);
-          Swal.fire({
-            icon: 'error',
-            title: 'Sending failed',
-            text: errorMessage,
-            confirmButtonColor: '#0b5fff'
-          });
-        } finally {
-          submitButton.disabled = false;
-          submitButton.textContent = 'Book free strategy call';
-        }
-      });
-    }
-  </script>
-
-
-
-
-<!-- Light / Dark Mode Floating Toggle Button -->
-
-
-
-<!-- AI Theme Mode Switcher UI Widget -->
-<div class="ai-theme-toggle-widget" id="aiThemeWidget" title="Toggle AI Theme Mode">
-  <div class="ai-theme-badge">
-    <i class="fas fa-sparkles"></i>
-    <span id="aiThemeLabel">AI Theme</span>
-  </div>
-  <div class="ai-theme-switch-track">
-    <span class="ai-theme-icon moon"><i class="fas fa-moon"></i></span>
-    <span class="ai-theme-icon sun"><i class="fas fa-sun"></i></span>
-    <div class="ai-theme-thumb"></div>
-  </div>
-</div>
-
-<script>
-(function() {
-  const widget = document.getElementById('aiThemeWidget');
-  const label = document.getElementById('aiThemeLabel');
-  let currentTheme = localStorage.getItem('caremed_theme') || 'dark';
-
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.body.setAttribute('data-theme', theme);
-    if (label) {
-      label.innerText = (theme === 'light') ? 'Light Mode' : 'Dark Mode';
-    }
-  }
-
-  // Apply immediately on load
-  applyTheme(currentTheme);
-
-  if (widget) {
-    widget.addEventListener('click', function(e) {
-      e.preventDefault();
-      currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
-      localStorage.setItem('caremed_theme', currentTheme);
-      applyTheme(currentTheme);
-    });
-  }
-})();
-</script>
-
+  <script src="script.js?v=17.0"></script>
 </body>
 </html>
