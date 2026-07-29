@@ -366,4 +366,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  // 13. EXECUTIVE CINEMATIC PAGE OPENING CURTAIN & HERO INTRO ENGINE
+  const executiveCurtain = document.getElementById('executiveCurtain');
+  const heroIntroSection = document.querySelector('.premium-hero-intro');
+
+  if (heroIntroSection) {
+    setTimeout(() => {
+      heroIntroSection.classList.add('is-loaded');
+    }, 150);
+  }
+
+  if (executiveCurtain) {
+    setTimeout(() => {
+      executiveCurtain.classList.add('is-opening');
+    }, 650);
+
+    setTimeout(() => {
+      executiveCurtain.style.display = 'none';
+    }, 2000);
+  }
 });

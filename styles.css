@@ -1410,3 +1410,107 @@ footer, .main-footer {
   .section { padding: 8.5rem 0; }
   .bass-img-card { height: 420px !important; }
 }
+
+/* ==========================================================================
+   EXECUTIVE CINEMATIC OPENING CURTAIN ANIMATION SYSTEM
+   ========================================================================== */
+.executive-opening-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.executive-curtain-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50.5%;
+  background: linear-gradient(135deg, #0b1329 0%, #0f172a 60%, #0369a1 100%);
+  box-shadow: inset 0 0 100px rgba(56, 189, 248, 0.25);
+  transition: transform 1.1s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
+}
+
+.executive-curtain-top {
+  top: 0;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.6);
+}
+
+.executive-curtain-bottom {
+  bottom: 0;
+  border-top: 2px solid rgba(56, 189, 248, 0.6);
+}
+
+.executive-opening-curtain.is-opening .executive-curtain-top {
+  transform: translateY(-100%);
+}
+
+.executive-opening-curtain.is-opening .executive-curtain-bottom {
+  transform: translateY(100%);
+}
+
+.executive-emblem-badge {
+  position: relative;
+  z-index: 100000;
+  text-align: center;
+  padding: 2.2rem 3rem;
+  background: rgba(15, 23, 42, 0.96);
+  border: 2px solid #38bdf8;
+  border-radius: var(--radius-xl);
+  box-shadow: 0 0 50px rgba(56, 189, 248, 0.45), inset 0 0 30px rgba(56, 189, 248, 0.2);
+  animation: emblemPulseIntro 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transition: opacity 0.5s ease 0.4s, transform 0.5s ease 0.4s;
+}
+
+.executive-opening-curtain.is-opening .executive-emblem-badge {
+  opacity: 0;
+  transform: scale(1.15);
+}
+
+@keyframes emblemPulseIntro {
+  0% { opacity: 0; transform: scale(0.75) translateY(20px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* PREMIUM 3D HERO CONTENT ENTRANCE STAGING */
+.premium-hero-intro .bass-reveal-left,
+.premium-hero-intro .subtitle,
+.premium-hero-intro h2,
+.premium-hero-intro .card,
+.premium-hero-intro .bass-reveal-right {
+  opacity: 0;
+  transform: translateY(35px) scale(0.97);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.premium-hero-intro.is-loaded .bass-reveal-left,
+.premium-hero-intro.is-loaded .subtitle {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.65s;
+}
+
+.premium-hero-intro.is-loaded h2 {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.8s;
+}
+
+.premium-hero-intro.is-loaded .card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 0.95s;
+}
+
+.premium-hero-intro.is-loaded .bass-reveal-right {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition-delay: 1.1s;
+}
