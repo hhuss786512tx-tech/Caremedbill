@@ -159,22 +159,20 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   requestAnimationFrame(updateParallaxAndLiquidMotion);
 
-  // 5. SPLIT-LOGO MERGE SCROLL ENTRANCE REVEAL
+  // 5. REPEATABLE 3D SPLIT-LOGO MERGE SCROLL ANIMATION
   const splitLogoWrapper = document.querySelector('.split-logo-wrapper');
   if (splitLogoWrapper) {
     const logoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           splitLogoWrapper.classList.add('is-merged');
+        } else {
+          // Reset logo halves so animation repeats every time user scrolls into view
+          splitLogoWrapper.classList.remove('is-merged');
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.15 });
     logoObserver.observe(splitLogoWrapper);
-
-    // Auto-trigger fallback to guarantee merge animation even on fast scrolls
-    setTimeout(() => {
-      splitLogoWrapper.classList.add('is-merged');
-    }, 1500);
   }
 
   // 6. STAGGERED FEATURE CARD ENTRANCE & DUAL-SIDE FAST IMAGE REVEALS
