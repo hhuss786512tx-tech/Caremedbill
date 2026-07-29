@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.setAttribute('data-theme', theme);
     localStorage.setItem('caremed_theme', theme);
     
+    const logoImgs = document.querySelectorAll('.logo-img, .split-logo-img');
+    logoImgs.forEach(img => {
+      if (theme === 'dark') {
+        img.src = 'assets/img/logo-dark.png';
+      } else {
+        img.src = 'assets/img/logo.png';
+      }
+    });
+
     if (themeToggleBtn) {
       if (theme === 'dark') {
         themeToggleBtn.innerHTML = '<i class="fas fa-sun" style="color: #f59e0b;"></i>';
@@ -301,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // 12. Modal Consultation Handler
+  // 12. Modal Consultation & Form Submission Handler
   const modal = document.getElementById('contactModal');
   const openModalBtns = document.querySelectorAll('.open-modal');
   const closeModalBtn = document.getElementById('closeModal');
@@ -319,4 +328,39 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.target === modal) modal.classList.remove('active');
     });
   }
+
+  // Intercept Form Submissions for Executive Practice Audit & Contact Forms
+  const forms = document.querySelectorAll('form');
+  forms.forEach(form => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      if (modal) modal.classList.remove('active');
+      
+      if (typeof Swal !== 'undefined') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Practice Audit Request Received!',
+          text: 'Thank you for reaching out. Our Senior RCM Executive Specialists are reviewing your practice details and will contact you within 24 hours.',
+          confirmButtonColor: '#0284c7',
+          background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#0f172a' : '#ffffff',
+          color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#f8fafc' : '#0f172a'
+        });
+      } else {
+        alert('Thank you! Your audit request has been submitted successfully.');
+      }
+      
+      form.reset();
+    });
+  });
+
+  // 3D Flip Card Touch & Click Event Listener
+  const flipCards = document.querySelectorAll('.flip-card');
+  flipCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (!e.target.closest('a') && !e.target.closest('button')) {
+        card.classList.toggle('is-flipped');
+      }
+    });
+  });
 });
