@@ -168,8 +168,13 @@ document.addEventListener('DOMContentLoaded', () => {
           splitLogoWrapper.classList.add('is-merged');
         }
       });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.1 });
     logoObserver.observe(splitLogoWrapper);
+
+    // Auto-trigger fallback to guarantee merge animation even on fast scrolls
+    setTimeout(() => {
+      splitLogoWrapper.classList.add('is-merged');
+    }, 1500);
   }
 
   // 6. STAGGERED FEATURE CARD ENTRANCE & DUAL-SIDE FAST IMAGE REVEALS

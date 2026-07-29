@@ -473,9 +473,18 @@ header {
   box-shadow: none !important;
   background: transparent !important;
   border-radius: 0 !important;
-  transition: transform 0.25s ease, height 0.25s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease, height 0.25s ease;
+  animation: logoPulseFloat 4s ease-in-out infinite alternate;
 }
-.logo-img:hover { transform: scale(1.04); }
+.logo-img:hover { 
+  transform: scale(1.06) translateY(-2px); 
+  filter: drop-shadow(0 8px 25px rgba(56, 189, 248, 0.45));
+}
+
+@keyframes logoPulseFloat {
+  0% { transform: translateY(0) scale(1); filter: drop-shadow(0 4px 15px rgba(2, 132, 199, 0.2)); }
+  100% { transform: translateY(-3px) scale(1.02); filter: drop-shadow(0 8px 22px rgba(56, 189, 248, 0.35)); }
+}
 
 .nav-links { display: none; }
 .nav-links.active {
