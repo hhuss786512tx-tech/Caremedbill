@@ -126,8 +126,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const blobFrame = document.querySelector('.vrtx-blob-frame');
   const parallaxImgs = document.querySelectorAll('.parallax-img');
 
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let lastScrollY = -1;
+
   function updateParallaxAndLiquidMotion() {
     const scrollY = window.scrollY;
+
+    // This loop previously recalculated and rewrote styles on every single
+    // frame forever, including while the page sat idle — each pass forcing a
+    // layout via getBoundingClientRect. Bail out unless the page actually moved.
+    if (scrollY === lastScrollY) {
+      requestAnimationFrame(updateParallaxAndLiquidMotion);
+      return;
+    }
+    lastScrollY = scrollY;
 
     bgSlides.forEach(slide => {
       slide.style.transform = `scale(1.06) translateY(${scrollY * 0.42}px)`;
@@ -150,14 +162,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const speed = parseFloat(img.getAttribute('data-speed')) || 0.15;
       const rect = img.getBoundingClientRect();
       if (rect.top < window.innerHeight && rect.bottom > 0) {
-        const yPos = (window.innerHeight - rect.top) * speed * 0.2;
-        img.style.transform = `translateY(${yPos}px) scale(1.04)`;
+        // The image is scaled up 6%, so it has 3% of slack on each edge. Any
+        // travel beyond that pulls the image off its frame and shows a gap.
+        const scale = 1.06;
+        const slack = (rect.height * (scale - 1)) / 2;
+        const raw = (window.innerHeight - rect.top) * speed * 0.2;
+        const yPos = Math.max(-slack, Math.min(slack, raw - slack));
+        img.style.transform = `translate3d(0, ${yPos.toFixed(2)}px, 0) scale(${scale})`;
       }
     });
 
     requestAnimationFrame(updateParallaxAndLiquidMotion);
   }
-  requestAnimationFrame(updateParallaxAndLiquidMotion);
+  // Parallax is decorative; skip it entirely when the user asks for less motion.
+  if (!reduceMotion) {
+    requestAnimationFrame(updateParallaxAndLiquidMotion);
+  }
 
   // 5. REPEATABLE 3D SPLIT-LOGO MERGE SCROLL ANIMATION
   const splitLogoWrapper = document.querySelector('.split-logo-wrapper');
@@ -191,12 +211,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }, observerOptions);
 
-  const revealTargets = document.querySelectorAll('.title-reveal, .reveal-on-scroll, .reveal, .card, .bento-card, .service-card, .bass-img-card, .bass-reveal-left, .bass-reveal-right');
+  // .flip-card is the outer bezel and is what the reveal layer fades in, so it
+  // has to be observed here or the whole card would never become visible.
+  const revealTargets = document.querySelectorAll('.title-reveal, .reveal-on-scroll, .reveal, .flip-card, .card, .bento-card, .service-card, .bass-img-card, .bass-reveal-left, .bass-reveal-right');
   revealTargets.forEach((el) => {
+    // A flip face inside an already-observed bezel would double up the stagger.
+    if (el.closest('.flip-card') && el !== el.closest('.flip-card')) return;
     const siblingIndex = Array.from(el.parentNode.children).indexOf(el);
     el.style.transitionDelay = `${(siblingIndex % 4) * 0.12}s`;
     revealObserver.observe(el);
   });
+
+  // Failsafe: the reveal layer genuinely hides content until observed, so if
+  // IntersectionObserver misfires for any reason the copy must not stay dark.
+  // Anything still unrevealed after 4s gets shown unconditionally.
+  window.setTimeout(() => {
+    revealTargets.forEach((el) => {
+      if (!el.classList.contains('is-visible')) {
+        el.style.transitionDelay = '0s';
+        el.classList.add('is-visible', 'active');
+      }
+    });
+  }, 4000);
 
   // 7. Stat Counter Count-up Observer
   const statNumbers = document.querySelectorAll('.stat-number[data-target]');
