@@ -126,28 +126,28 @@
               <div class="grid-2-col" style="gap: 1.2rem;">
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">First Name *</label>
-                  <input type="text" required class="vrtx-select" placeholder="Dr. Alexander">
+                  <input type="text" name="first_name" required class="vrtx-select" placeholder="Dr. Alexander">
                 </div>
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Last Name *</label>
-                  <input type="text" required class="vrtx-select" placeholder="Wright">
+                  <input type="text" name="last_name" required class="vrtx-select" placeholder="Wright">
                 </div>
               </div>
 
               <div class="grid-2-col" style="gap: 1.2rem;">
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Email Address *</label>
-                  <input type="email" required class="vrtx-select" placeholder="alexander@medclinic.com">
+                  <input type="email" name="email" required class="vrtx-select" placeholder="alexander@medclinic.com">
                 </div>
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Phone Number *</label>
-                  <input type="tel" required class="vrtx-select" placeholder="(888) 865-5485">
+                  <input type="tel" name="phone" required class="vrtx-select" placeholder="(555) 000-0000">
                 </div>
               </div>
 
               <div>
                 <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Practice Medical Specialty *</label>
-                <select required class="vrtx-select">
+                <select name="specialty" required class="vrtx-select">
                   <option value="">Select Specialty</option>
                   <option value="urgent-care">Urgent Care / ER</option>
                   <option value="cardiology">Cardiology</option>
@@ -163,11 +163,11 @@
               <div class="grid-2-col" style="gap: 1.2rem;">
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Preferred Date *</label>
-                  <input type="date" required class="vrtx-select">
+                  <input type="date" name="preferred_date" required class="vrtx-select">
                 </div>
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Preferred Time Slot *</label>
-                  <select required class="vrtx-select">
+                  <select name="preferred_time" required class="vrtx-select">
                     <option value="">Select Time Slot</option>
                     <option value="morning">Morning (9:00 AM - 12:00 PM)</option>
                     <option value="afternoon">Afternoon (1:00 PM - 4:00 PM)</option>
@@ -178,7 +178,7 @@
 
               <div>
                 <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Notes / Billing Issues</label>
-                <textarea class="vrtx-select" rows="4" placeholder="Briefly describe your current monthly billing volume, claim denial rate, or specific goals..."></textarea>
+                <textarea name="notes" class="vrtx-select" rows="4" placeholder="Briefly describe your current monthly billing volume, claim denial rate, or specific goals..."></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 1.1rem;">

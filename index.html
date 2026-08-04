@@ -973,25 +973,26 @@
         <p style="color: var(--text-secondary); font-size: 0.95rem;">Our senior RCM specialists will analyze your billing metrics and report hidden revenue opportunities.</p>
       </div>
 
+      <!-- action/method are set at runtime by script.js from LEAD_FORM_ID -->
       <form id="modalContactForm">
         <div style="display: grid; gap: 1.2rem;">
           <div>
             <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.95rem;">Full Name *</label>
-            <input type="text" required class="vrtx-select" placeholder="Dr. John Smith">
+            <input type="text" name="name" required class="vrtx-select" placeholder="Dr. John Smith">
           </div>
           <div class="grid-2-col" style="gap: 1.2rem;">
             <div>
               <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.95rem;">Email Address *</label>
-              <input type="email" required class="vrtx-select" placeholder="john@practice.com">
+              <input type="email" name="email" required class="vrtx-select" placeholder="john@practice.com">
             </div>
             <div>
               <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.95rem;">Phone Number *</label>
-              <input type="tel" required class="vrtx-select" placeholder="(555) 000-0000">
+              <input type="tel" name="phone" required class="vrtx-select" placeholder="(555) 000-0000">
             </div>
           </div>
           <div>
             <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.95rem;">Practice Specialty *</label>
-            <select required class="vrtx-select">
+            <select name="specialty" required class="vrtx-select">
               <option value="">Select Practice Specialty</option>
               <option value="urgent-care">Urgent Care / Emergency</option>
               <option value="cardiology">Cardiology</option>
@@ -1005,7 +1006,7 @@
           </div>
           <div>
             <label style="display: block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.95rem;">Additional Practice Notes</label>
-            <textarea class="vrtx-select" rows="3" placeholder="Tell us about your current monthly volume or main billing challenges..."></textarea>
+            <textarea name="notes" class="vrtx-select" rows="3" placeholder="Tell us about your current monthly volume or main billing challenges..."></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Submit Audit Request <i class="fas fa-paper-plane"></i></button>
         </div>

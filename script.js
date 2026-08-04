@@ -3,6 +3,100 @@
  * Working Light & Dark Executive Theme Engine with Split-Logo Entrance Trigger
  */
 
+/* ---------------------------------------------------------------------------
+ * LEAD DELIVERY CONFIG — this is the only line to change to turn the forms on.
+ *
+ * 1. Create a form at https://formspree.io and point it at info@caremedbill.com
+ * 2. Verify that address from the confirmation email Formspree sends
+ * 3. Paste the form ID below (the part after /f/, e.g. 'xvgpqebl')
+ *
+ * Until a real ID is set, the forms do NOT claim success. They show the phone
+ * number and email instead and keep the visitor's typed input on screen, so a
+ * lead is never silently swallowed.
+ * ------------------------------------------------------------------------- */
+const LEAD_FORM_ID = 'REPLACE_WITH_FORMSPREE_ID';
+
+const LEAD_FORM_ENDPOINT = 'https://formspree.io/f/' + LEAD_FORM_ID;
+const LEAD_FORM_CONFIGURED = LEAD_FORM_ID.indexOf('REPLACE_WITH') !== 0;
+
+function leadDialogTheme() {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return {
+    confirmButtonColor: '#0284c7',
+    background: dark ? '#0f172a' : '#ffffff',
+    color: dark ? '#f8fafc' : '#0f172a'
+  };
+}
+
+// Shown when delivery fails or is not configured. Never claims the lead landed.
+function leadDeliveryFallback() {
+  const title = 'We could not send that just now';
+  const text = 'Please call +1 888 865 5485 or email info@caremedbill.com and we will pick it up right away. Your details are still in the form below.';
+  if (typeof Swal !== 'undefined') {
+    Swal.fire(Object.assign({ icon: 'error', title: title, text: text }, leadDialogTheme()));
+  } else {
+    alert(title + '. ' + text);
+  }
+}
+
+function leadDeliverySuccess() {
+  if (typeof Swal !== 'undefined') {
+    Swal.fire(Object.assign({
+      icon: 'success',
+      title: 'Practice Audit Request Received!',
+      text: 'Thank you for reaching out. Our Senior RCM Executive Specialists are reviewing your practice details and will contact you within 24 hours.'
+    }, leadDialogTheme()));
+  } else {
+    alert('Thank you! Your audit request has been submitted successfully.');
+  }
+}
+
+/**
+ * POSTs a form to the lead inbox. Resets the form only on confirmed delivery.
+ * onDelivered runs after a successful send (used to close the modal).
+ */
+function submitLeadForm(form, onDelivered) {
+  if (!LEAD_FORM_CONFIGURED) {
+    console.warn('[caremedbill] LEAD_FORM_ID is not set in script.js — this submission was not delivered.');
+    leadDeliveryFallback();
+    return;
+  }
+
+  const button = form.querySelector('button[type="submit"], input[type="submit"]');
+  const buttonHtml = button ? button.innerHTML : null;
+  if (button) {
+    button.disabled = true;
+    button.innerHTML = 'Sending...';
+  }
+
+  const data = new FormData(form);
+  // Gives the owner a usable subject line and tells apart the site's forms.
+  data.set('_subject', 'New website lead — ' + (form.id || 'caremedbill'));
+  data.set('page', window.location.pathname);
+
+  fetch(LEAD_FORM_ENDPOINT, {
+    method: 'POST',
+    body: data,
+    headers: { 'Accept': 'application/json' }
+  })
+    .then(response => {
+      if (!response.ok) throw new Error('Lead endpoint returned ' + response.status);
+      if (typeof onDelivered === 'function') onDelivered();
+      leadDeliverySuccess();
+      form.reset();
+    })
+    .catch(error => {
+      console.error('[caremedbill] lead delivery failed:', error);
+      leadDeliveryFallback();
+    })
+    .finally(() => {
+      if (button) {
+        button.disabled = false;
+        button.innerHTML = buttonHtml;
+      }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Working Light / Dark Executive Theme Engine
   const themeToggleBtn = document.getElementById('themeToggle') || document.getElementById('themeToggleBtn');
@@ -332,28 +426,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Intercept Form Submissions for Executive Practice Audit & Contact Forms
-  const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
+  // Submit Executive Practice Audit & Contact Forms to the lead inbox
+  document.querySelectorAll('form').forEach(form => {
+    if (LEAD_FORM_CONFIGURED) {
+      form.setAttribute('action', LEAD_FORM_ENDPOINT);
+      form.setAttribute('method', 'POST');
+    }
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      
-      if (modal) modal.classList.remove('active');
-      
-      if (typeof Swal !== 'undefined') {
-        Swal.fire({
-          icon: 'success',
-          title: 'Practice Audit Request Received!',
-          text: 'Thank you for reaching out. Our Senior RCM Executive Specialists are reviewing your practice details and will contact you within 24 hours.',
-          confirmButtonColor: '#0284c7',
-          background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#0f172a' : '#ffffff',
-          color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#f8fafc' : '#0f172a'
-        });
-      } else {
-        alert('Thank you! Your audit request has been submitted successfully.');
-      }
-      
-      form.reset();
+      submitLeadForm(form, () => { if (modal) modal.classList.remove('active'); });
     });
   });
 

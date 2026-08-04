@@ -159,15 +159,15 @@
       <form id="contactForm">
         <div class="form-group">
           <label for="modalName">Full Name</label>
-          <input type="text" id="modalName" class="form-control" placeholder="John Doe" required>
+          <input type="text" id="modalName" name="name" class="form-control" placeholder="John Doe" required>
         </div>
         <div class="form-group">
           <label for="modalEmail">Work Email</label>
-          <input type="email" id="modalEmail" class="form-control" placeholder="john@company.com" required>
+          <input type="email" id="modalEmail" name="email" class="form-control" placeholder="john@company.com" required>
         </div>
         <div class="form-group">
           <label for="modalMessage">Project Scope / Details</label>
-          <textarea id="modalMessage" class="form-control" rows="4" placeholder="Tell us about your objectives..." required></textarea>
+          <textarea id="modalMessage" name="message" class="form-control" rows="4" placeholder="Tell us about your objectives..." required></textarea>
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Submit Consultation Request</button>
       </form>

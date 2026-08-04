@@ -130,7 +130,7 @@
                 
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Select Subject *</label>
-                  <select required class="vrtx-select">
+                  <select name="subject" required class="vrtx-select">
                     <option value="">Select Subject</option>
                     <option value="Make Appointment">Make Appointment</option>
                     <option value="General Inquiry">General Inquiry</option>
@@ -141,22 +141,22 @@
 
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Full Name *</label>
-                  <input type="text" required class="vrtx-select" placeholder="Your Name">
+                  <input type="text" name="name" required class="vrtx-select" placeholder="Your Name">
                 </div>
 
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Email Address *</label>
-                  <input type="email" required class="vrtx-select" placeholder="Your Email">
+                  <input type="email" name="email" required class="vrtx-select" placeholder="Your Email">
                 </div>
 
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Phone Number *</label>
-                  <input type="tel" required class="vrtx-select" placeholder="Your Phone Number">
+                  <input type="tel" name="phone" required class="vrtx-select" placeholder="Your Phone Number">
                 </div>
 
                 <div>
                   <label style="display: block; font-weight: 700; margin-bottom: 0.4rem;">Message</label>
-                  <textarea class="vrtx-select" rows="4" placeholder="Write your message..."></textarea>
+                  <textarea name="message" class="vrtx-select" rows="4" placeholder="Write your message..."></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem; padding: 1.1rem; font-size: 1.05rem;">
@@ -236,7 +236,7 @@
             Join healthcare leaders nationwide receiving executive updates on medical billing codes, CMS regulations, and practice cashflow optimizations.
           </p>
           <form id="newsletterFormTouch" style="display: flex; gap: 1rem; max-width: 580px; margin: 0 auto; flex-wrap: wrap;">
-            <input type="email" required placeholder="Enter your email address..." class="vrtx-select" style="flex: 1; min-width: 260px;">
+            <input type="email" name="email" required placeholder="Enter your email address..." class="vrtx-select" style="flex: 1; min-width: 260px;">
             <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Subscribe Now <i class="fas fa-paper-plane"></i></button>
           </form>
         </div>
