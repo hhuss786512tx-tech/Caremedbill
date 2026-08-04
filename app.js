@@ -3,14 +3,42 @@
  */
 
 /* ---------------------------------------------------------------------------
- * LEAD DELIVERY CONFIG — keep LEAD_FORM_ID identical to the one in script.js.
+ * LEAD DELIVERY CONFIG — keep LEAD_FORM_TARGET identical to the one in script.js.
  * See the comment block in script.js for the setup steps. Until a real ID is
  * set, this form does NOT claim success.
  * ------------------------------------------------------------------------- */
-const LEAD_FORM_ID = 'REPLACE_WITH_FORMSPREE_ID';
+const LEAD_FORM_TARGET = 'REPLACE_WITH_FORMSUBMIT_TARGET';
 
-const LEAD_FORM_ENDPOINT = 'https://formspree.io/f/' + LEAD_FORM_ID;
-const LEAD_FORM_CONFIGURED = LEAD_FORM_ID.indexOf('REPLACE_WITH') !== 0;
+// Keep the "New Lead:" prefix — lead_email_watch.py filters on it.
+const LEAD_BUSINESS_NAME = 'CareMedBill';
+
+const LEAD_FORM_ENDPOINT = 'https://formsubmit.co/ajax/' + LEAD_FORM_TARGET;
+const LEAD_FORM_CONFIGURED = LEAD_FORM_TARGET.indexOf('REPLACE_WITH') !== 0;
+
+// FormSubmit's AJAX endpoint takes a JSON object, not FormData.
+function buildLeadPayload(form) {
+  const payload = {};
+  new FormData(form).forEach((value, key) => { payload[key] = value; });
+  payload._subject = 'New Lead: ' + (form.id || 'website form') + ' from ' + LEAD_BUSINESS_NAME;
+  payload._captcha = 'false'; // required, or FormSubmit answers AJAX with a challenge page
+  if (payload.email) payload._replyto = payload.email;
+  payload.page = window.location.pathname;
+  return payload;
+}
+
+// Honeypot named to match config/speed_to_lead/*.json "honeypot_field".
+function attachHoneypot(form) {
+  if (form.querySelector('[name="botcheck"]')) return;
+  const hp = document.createElement('input');
+  hp.type = 'text';
+  hp.name = 'botcheck';
+  hp.tabIndex = -1;
+  hp.autocomplete = 'off';
+  hp.setAttribute('aria-hidden', 'true');
+  hp.style.cssText = 'position:absolute;left:-9999px;width:0;height:0;opacity:0;';
+  form.appendChild(hp);
+}
+
 const LEAD_FALLBACK_MESSAGE = 'We could not send that just now. Please call +1 888 865 5485 or email info@caremedbill.com and we will pick it up right away. Your details are still in the form below.';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -101,15 +129,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. Contact Form Handler
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
+    attachHoneypot(contactForm);
     if (LEAD_FORM_CONFIGURED) {
-      contactForm.setAttribute('action', LEAD_FORM_ENDPOINT);
+      contactForm.setAttribute('action', 'https://formsubmit.co/' + LEAD_FORM_TARGET);
       contactForm.setAttribute('method', 'POST');
     }
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
 
       if (!LEAD_FORM_CONFIGURED) {
-        console.warn('[caremedbill] LEAD_FORM_ID is not set in app.js — this submission was not delivered.');
+        console.warn('[caremedbill] LEAD_FORM_TARGET is not set in app.js — this submission was not delivered.');
         alert(LEAD_FALLBACK_MESSAGE);
         return;
       }
@@ -121,17 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
         button.innerHTML = 'Sending...';
       }
 
-      const data = new FormData(contactForm);
-      data.set('_subject', 'New website lead — portfolio consultation');
-      data.set('page', window.location.pathname);
-
       fetch(LEAD_FORM_ENDPOINT, {
         method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
+        body: JSON.stringify(buildLeadPayload(contactForm)),
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
       })
         .then(response => {
           if (!response.ok) throw new Error('Lead endpoint returned ' + response.status);
+          return response.json();
+        })
+        .then(result => {
+          // 200 with success:"false" means the address is unconfirmed.
+          if (result && String(result.success) === 'false') {
+            throw new Error('FormSubmit rejected the submission: ' + (result.message || 'unknown reason'));
+          }
           alert('Thank you! Your inquiry has been received. Our team will reach out within 2 hours.');
           if (modal) modal.classList.remove('active');
           contactForm.reset();

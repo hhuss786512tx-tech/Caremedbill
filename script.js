@@ -6,18 +6,58 @@
 /* ---------------------------------------------------------------------------
  * LEAD DELIVERY CONFIG — this is the only line to change to turn the forms on.
  *
- * 1. Create a form at https://formspree.io and point it at info@caremedbill.com
- * 2. Verify that address from the confirmation email Formspree sends
- * 3. Paste the form ID below (the part after /f/, e.g. 'xvgpqebl')
+ * Provider: FormSubmit (free, unlimited submissions, email delivery only).
  *
- * Until a real ID is set, the forms do NOT claim success. They show the phone
- * number and email instead and keep the visitor's typed input on screen, so a
- * lead is never silently swallowed.
+ * 1. Set LEAD_FORM_TARGET to info@caremedbill.com and submit any form once
+ * 2. FormSubmit emails that address asking for confirmation — click the link
+ * 3. FormSubmit then gives you a random alias (e.g. 'a1b2c3d4e5f6'). Put the
+ *    alias here instead of the address so the inbox is not exposed in public
+ *    JavaScript, where scrapers would harvest it.
+ *
+ * Until a real target is set, the forms do NOT claim success. They show the
+ * phone number and email instead and keep the visitor's typed input on screen,
+ * so a lead is never silently swallowed.
  * ------------------------------------------------------------------------- */
-const LEAD_FORM_ID = 'REPLACE_WITH_FORMSPREE_ID';
+const LEAD_FORM_TARGET = 'REPLACE_WITH_FORMSUBMIT_TARGET';
 
-const LEAD_FORM_ENDPOINT = 'https://formspree.io/f/' + LEAD_FORM_ID;
-const LEAD_FORM_CONFIGURED = LEAD_FORM_ID.indexOf('REPLACE_WITH') !== 0;
+// Business name used in the alert subject line. Must keep the "New Lead:"
+// prefix — tools/lead_email_watch.py filters on it via subject_contains.
+const LEAD_BUSINESS_NAME = 'CareMedBill';
+
+const LEAD_FORM_ENDPOINT = 'https://formsubmit.co/ajax/' + LEAD_FORM_TARGET;
+const LEAD_FORM_CONFIGURED = LEAD_FORM_TARGET.indexOf('REPLACE_WITH') !== 0;
+
+/**
+ * FormSubmit's AJAX endpoint takes a JSON object, not FormData. Adds the
+ * control fields the delivery and Speed to Lead pipeline expect.
+ */
+function buildLeadPayload(form) {
+  const payload = {};
+  new FormData(form).forEach((value, key) => { payload[key] = value; });
+
+  payload._subject = 'New Lead: ' + (form.id || 'website form') + ' from ' + LEAD_BUSINESS_NAME;
+  payload._captcha = 'false'; // required, or FormSubmit answers AJAX with a challenge page
+  if (payload.email) payload._replyto = payload.email; // replies go to the lead
+  payload.page = window.location.pathname;
+  return payload;
+}
+
+/**
+ * Honeypot. `botcheck` is the field name config/speed_to_lead/*.json already
+ * expects, so a filled one is dropped downstream. Injected rather than written
+ * into each form so there is one place to change it.
+ */
+function attachHoneypot(form) {
+  if (form.querySelector('[name="botcheck"]')) return;
+  const hp = document.createElement('input');
+  hp.type = 'text';
+  hp.name = 'botcheck';
+  hp.tabIndex = -1;
+  hp.autocomplete = 'off';
+  hp.setAttribute('aria-hidden', 'true');
+  hp.style.cssText = 'position:absolute;left:-9999px;width:0;height:0;opacity:0;';
+  form.appendChild(hp);
+}
 
 function leadDialogTheme() {
   const dark = document.documentElement.getAttribute('data-theme') === 'dark';
@@ -57,7 +97,7 @@ function leadDeliverySuccess() {
  */
 function submitLeadForm(form, onDelivered) {
   if (!LEAD_FORM_CONFIGURED) {
-    console.warn('[caremedbill] LEAD_FORM_ID is not set in script.js — this submission was not delivered.');
+    console.warn('[caremedbill] LEAD_FORM_TARGET is not set in script.js — this submission was not delivered.');
     leadDeliveryFallback();
     return;
   }
@@ -69,18 +109,21 @@ function submitLeadForm(form, onDelivered) {
     button.innerHTML = 'Sending...';
   }
 
-  const data = new FormData(form);
-  // Gives the owner a usable subject line and tells apart the site's forms.
-  data.set('_subject', 'New website lead — ' + (form.id || 'caremedbill'));
-  data.set('page', window.location.pathname);
-
   fetch(LEAD_FORM_ENDPOINT, {
     method: 'POST',
-    body: data,
-    headers: { 'Accept': 'application/json' }
+    body: JSON.stringify(buildLeadPayload(form)),
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
   })
     .then(response => {
       if (!response.ok) throw new Error('Lead endpoint returned ' + response.status);
+      return response.json();
+    })
+    .then(result => {
+      // FormSubmit answers 200 with {success:"false"} when the target address
+      // has not been confirmed yet, so status alone is not proof of delivery.
+      if (result && String(result.success) === 'false') {
+        throw new Error('FormSubmit rejected the submission: ' + (result.message || 'unknown reason'));
+      }
       if (typeof onDelivered === 'function') onDelivered();
       leadDeliverySuccess();
       form.reset();
@@ -428,8 +471,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Submit Executive Practice Audit & Contact Forms to the lead inbox
   document.querySelectorAll('form').forEach(form => {
+    attachHoneypot(form);
     if (LEAD_FORM_CONFIGURED) {
-      form.setAttribute('action', LEAD_FORM_ENDPOINT);
+      // No-JS fallback posts to the non-AJAX endpoint, which redirects.
+      form.setAttribute('action', 'https://formsubmit.co/' + LEAD_FORM_TARGET);
       form.setAttribute('method', 'POST');
     }
     form.addEventListener('submit', (e) => {
