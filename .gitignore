@@ -1,3 +1,57 @@
+# ── Dependencies ──────────────────────────────────
+node_modules/
+
+# ── Build output ─────────────────────────────────
+dist/
+build/
+
+# ── Environment & credentials ────────────────────
 .env
+.env.*
+!.env.example
+
+# ── OS junk ──────────────────────────────────────
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# ── Python ───────────────────────────────────────
 __pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+.venv/
+venv/
+
+# ── IDE / Editor ─────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# ── Temp & logs ──────────────────────────────────
+tmp/
+temp/
+*.tmp
+*.log
+npm-debug.log*
+
+# ── Archive artifacts ────────────────────────────
+*.zip
+*.tar.gz
+*.rar
+
+# Note: deploy.py exists at project root (FTP deployment script).
+# It reads credentials from .env — do NOT commit .env.
+# deploy.py itself is safe to commit (no hardcoded secrets).

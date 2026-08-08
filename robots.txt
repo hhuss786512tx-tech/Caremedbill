@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://caremedbill.com/sitemap.xml
+
+# Disallow temporary, admin, and development paths
+Disallow: /tmp/
+Disallow: /temp/
+Disallow: /admin/
+Disallow: /dev/
+Disallow: /staging/
+Disallow: /backup/
+Disallow: /test/
+Disallow: /*.log$
+Disallow: /*.env$
+Disallow: /deploy.py$
+Disallow: /__pycache__/
+Disallow: /.git/
+Disallow: /.gitignore
+Disallow: /node_modules/
