@@ -1009,10 +1009,30 @@
             <textarea name="notes" class="vrtx-select" rows="3" placeholder="Tell us about your current monthly volume or main billing challenges..."></textarea>
           </div>
           <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Submit Audit Request <i class="fas fa-paper-plane"></i></button>
+          <p style="text-align: center; font-size: 0.82rem; color: var(--text-muted); margin-top: 0.5rem;">Your submission is 100% confidential. We'll respond within 24 hours.</p>
         </div>
       </form>
     </div>
   </div>
+
+  <!-- Sticky Mobile CTA Bar -->
+  <div class="mobile-sticky-cta" id="mobileStickyCta">
+    <a href="tel:+18888655485" class="mobile-sticky-btn mobile-sticky-call">
+      <i class="fas fa-phone-alt"></i> Call Now
+    </a>
+    <a href="bookingappointment.html" class="mobile-sticky-btn mobile-sticky-audit">
+      <i class="fas fa-file-medical-alt"></i> Free Audit
+    </a>
+  </div>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
 
   <script src="script.js?v=406.0"></script>
 </body>

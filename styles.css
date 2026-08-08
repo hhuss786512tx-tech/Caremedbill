@@ -1520,3 +1520,71 @@ footer, .main-footer {
     transform: translate(0, -10px) !important;
   }
 }
+
+/* ── Mobile Sticky CTA Bar ── */
+.mobile-sticky-cta {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: rgba(15, 23, 42, 0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6rem;
+  gap: 0.6rem;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.mobile-sticky-btn {
+  flex: 1;
+  text-align: center;
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+  font-size: 0.92rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.mobile-sticky-call {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-sticky-call:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.mobile-sticky-audit {
+  background: var(--accent-primary);
+  color: #ffffff;
+  border: 1px solid var(--accent-primary);
+}
+
+.mobile-sticky-audit:hover {
+  background: #c0264e;
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .mobile-sticky-cta {
+    display: flex;
+  }
+  
+  body {
+    padding-bottom: 80px;
+  }
+  
+  footer.main-footer {
+    padding-bottom: 100px;
+  }
+}
