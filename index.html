@@ -208,6 +208,72 @@
       </div>
     </div>
 
+    <!-- SECTION: Executive Leadership Spotlight (moved up from About Us so it's one of the first things a visitor sees) -->
+    <section class="section" style="background: var(--bg-card);">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="subtitle">Our People</div>
+          <h2>Meet Our <span class="gradient-text">Leadership Team</span></h2>
+        </div>
+
+        <div class="reveal-on-scroll" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2.5rem; max-width: 700px; margin: 0 auto;">
+
+          <div class="card" style="text-align: center; padding: 2.5rem 2rem;">
+            <img src="assets/img/team/hashim-mehmood.jpg" alt="Hashim Mehmood, Chief Operating Officer" loading="lazy" style="width: 140px; height: 140px; border-radius: 50%; object-fit: cover; object-position: top center; margin: 0 auto 1.5rem; display: block; border: 3px solid var(--border-light);">
+            <h3 style="margin-bottom: 0.3rem;">Hashim Mehmood</h3>
+            <p style="color: #0284c7; font-weight: 700; margin-bottom: 1rem;">Chief Operating Officer (COO)</p>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">Leads marketing and business development, driving CareMedBill's nationwide growth and client partnerships.</p>
+          </div>
+
+          <div class="card" style="text-align: center; padding: 2.5rem 2rem;">
+            <div style="width: 140px; height: 140px; border-radius: 50%; margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; background: linear-gradient(140deg, #e0f2fe 0%, #bae6fd 100%); border: 3px solid var(--border-light);">
+              <i class="fas fa-user-md" style="font-size: 3rem; color: #0284c7;"></i>
+            </div>
+            <h3 style="margin-bottom: 0.3rem;">Dr. Hussain</h3>
+            <p style="color: #0284c7; font-weight: 700; margin-bottom: 1rem;">Title Coming Soon</p>
+            <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">Photo and bio coming soon.</p>
+          </div>
+
+        </div>
+
+        <div style="text-align: center; margin-top: 2.5rem;" class="reveal-on-scroll">
+          <a href="about.html" class="btn btn-secondary">Meet the Full Team <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      SECTION: Client Testimonials Rotating Carousel
+      Source: Care_Med_Billing_Testimonial_Drafts.docx (client-provided, 2026-08-12).
+      NOTE: the source doc flags these as DRAFTS pending each physician's sign-off
+      before being published under their name. Published live per explicit request;
+      re-confirm approval with each doctor and update/remove if any pushes back.
+      Avatars are initials-only by design — no fabricated photo is attributed to
+      a real named physician (same rule already applied on the SSC site).
+    -->
+    <section class="section testimonials-section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="subtitle">Client Testimonials</div>
+          <h2>What <span class="gradient-text">Providers Say</span> About Us</h2>
+        </div>
+
+        <div class="testimonials-carousel-wrapper reveal-on-scroll" id="testimonialsCarousel">
+          <button type="button" class="carousel-control-btn prev" id="testiPrevBtn" aria-label="Previous testimonials">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <div class="testimonials-track" id="testimonialsTrack"></div>
+
+          <button type="button" class="carousel-control-btn next" id="testiNextBtn" aria-label="Next testimonials">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="carousel-indicators" id="testiDots"></div>
+      </div>
+    </section>
+
     <!-- NEW SECTION: DYNAMIC SPLIT-LOGO MERGE SCROLL ENTRANCE SHOWCASE -->
     <section class="split-logo-section">
       <div class="container">

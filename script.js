@@ -422,4 +422,128 @@ document.addEventListener('DOMContentLoaded', () => {
       executiveCurtain.style.display = 'none';
     }, 2000);
   }
+
+  // 14. CLIENT TESTIMONIALS ROTATING CAROUSEL
+  // Avatars are initials-only by design: these are real named physicians,
+  // and pairing a fabricated photo with a real person's testimonial invents
+  // a likeness for someone who never sat for it.
+  const testimonialsData = [
+    {
+      name: 'Dr. Syed Hussain',
+      role: 'Nephrologist',
+      initials: 'SH',
+      color: 'linear-gradient(135deg, #0284c7 0%, #0369a1 100%)',
+      text: "Care Med Billing has been a dependable partner for our practice. Their team understands the complexity of specialty billing and consistently follows through on claims, denials, and collections. Their support with billing workflows, RPM, and CCM has helped us stay organized while allowing our staff to focus more on patient care."
+    },
+    {
+      name: 'Dr. Samira Khan',
+      role: 'Internist',
+      initials: 'SK',
+      color: 'linear-gradient(135deg, #06b6d4 0%, #0284c7 100%)',
+      text: "Working with Care Med Billing has made our revenue cycle much easier to manage. They are responsive, detail-oriented, and proactive about resolving billing issues before they become bigger problems. Their support across medical billing, RPM, CCM, and related services has added real efficiency to our practice."
+    },
+    {
+      name: 'Dr. Tanveer Khan',
+      role: 'Family Practice',
+      initials: 'TK',
+      color: 'linear-gradient(135deg, #059669 0%, #0284c7 100%)',
+      text: "Care Med Billing provides the kind of hands-on support a busy primary care practice needs. From everyday claims and follow-up to RPM and CCM services, their team communicates clearly and keeps the process moving. I especially appreciate how accessible they are whenever we have a question or need something addressed quickly."
+    },
+    {
+      name: 'Dr. Maryum Khawari',
+      role: 'Rheumatologist',
+      initials: 'MK',
+      color: 'linear-gradient(135deg, #0369a1 0%, #06b6d4 100%)',
+      text: "Care Med Billing has been a valuable resource for our practice. Their team is professional, attentive, and familiar with the billing challenges that come with specialty care. They have helped streamline our billing processes and provide reliable support with claims, follow-up, and ongoing patient-care programs such as RPM and CCM."
+    }
+  ];
+
+  const testiTrack = document.getElementById('testimonialsTrack');
+  const testiDots = document.getElementById('testiDots');
+  const testiPrevBtn = document.getElementById('testiPrevBtn');
+  const testiNextBtn = document.getElementById('testiNextBtn');
+  const testiWrapper = document.getElementById('testimonialsCarousel');
+
+  if (testiTrack && testiDots && testiPrevBtn && testiNextBtn && testiWrapper) {
+    let testiIndex = 0;
+    let testiCardsPerPage = window.innerWidth < 768 ? 1 : 2;
+    let testiPaused = false;
+    let testiTimer = null;
+
+    function testiTotalPages() {
+      return Math.ceil(testimonialsData.length / testiCardsPerPage);
+    }
+
+    function renderTestimonials() {
+      const totalPages = testiTotalPages();
+      if (testiIndex >= totalPages) testiIndex = 0;
+
+      const start = testiIndex * testiCardsPerPage;
+      const visible = testimonialsData.slice(start, start + testiCardsPerPage);
+
+      testiTrack.innerHTML = visible.map(t => `
+        <div class="card testi-card testimonial-card-item">
+          <div>
+            <i class="fas fa-quote-left testimonial-quote-icon"></i>
+            <p class="testimonial-text">"${t.text}"</p>
+          </div>
+          <div class="testimonial-author-wrapper">
+            <div class="testimonial-avatar-circle" style="background: ${t.color};">${t.initials}</div>
+            <div class="testimonial-author">
+              <span class="author-name">${t.name}</span>
+              <span class="author-role">${t.role}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      testiDots.innerHTML = '';
+      for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'indicator-dot' + (i === testiIndex ? ' active' : '');
+        dot.setAttribute('aria-label', `Go to testimonial page ${i + 1}`);
+        dot.addEventListener('click', () => {
+          testiIndex = i;
+          renderTestimonials();
+          restartTestiAutoRotate();
+        });
+        testiDots.appendChild(dot);
+      }
+    }
+
+    function testiNext() {
+      testiIndex = (testiIndex + 1) % testiTotalPages();
+      renderTestimonials();
+    }
+
+    function testiPrev() {
+      testiIndex = (testiIndex - 1 + testiTotalPages()) % testiTotalPages();
+      renderTestimonials();
+    }
+
+    function restartTestiAutoRotate() {
+      if (testiTimer) clearInterval(testiTimer);
+      testiTimer = setInterval(() => {
+        if (!testiPaused) testiNext();
+      }, 5000);
+    }
+
+    testiNextBtn.addEventListener('click', () => { testiNext(); restartTestiAutoRotate(); });
+    testiPrevBtn.addEventListener('click', () => { testiPrev(); restartTestiAutoRotate(); });
+    testiWrapper.addEventListener('mouseenter', () => { testiPaused = true; });
+    testiWrapper.addEventListener('mouseleave', () => { testiPaused = false; });
+
+    window.addEventListener('resize', () => {
+      const nextCardsPerPage = window.innerWidth < 768 ? 1 : 2;
+      if (nextCardsPerPage !== testiCardsPerPage) {
+        testiCardsPerPage = nextCardsPerPage;
+        testiIndex = 0;
+        renderTestimonials();
+      }
+    });
+
+    renderTestimonials();
+    restartTestiAutoRotate();
+  }
 });

@@ -2413,3 +2413,154 @@ h3.gradient-text {
   display: block;
   width: 100%;
 }
+
+/* --------------------------------------------------------------------------
+   19. TESTIMONIALS ROTATING CAROUSEL
+   Auto-rotating client testimonial carousel (pages of 2 on desktop, 1 on
+   mobile) with prev/next arrows and dot indicators. Cards are rendered by
+   script.js from the testimonialsData array, not hardcoded in the HTML.
+   -------------------------------------------------------------------------- */
+.testimonials-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.carousel-control-btn {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  width: 48px;
+  height: 48px;
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 8px 22px var(--accent-glow) !important;
+  flex-shrink: 0;
+  z-index: 5;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease !important;
+}
+
+.carousel-control-btn:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 12px 30px var(--accent-glow) !important;
+}
+
+@media (max-width: 768px) {
+  .carousel-control-btn { display: none; }
+}
+
+.testimonials-track {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.2rem;
+  width: 100%;
+}
+
+@media (max-width: 850px) {
+  .testimonials-track { grid-template-columns: 1fr; }
+}
+
+.testimonial-card-item {
+  text-align: left !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 260px;
+  animation: testiCardIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes testiCardIn {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.testimonial-quote-icon {
+  color: var(--accent-primary);
+  opacity: 0.3;
+  font-size: 1.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.testimonial-text {
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-author-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-top: 1.5px solid var(--border-light);
+  padding-top: 1.25rem;
+  margin-top: auto;
+}
+
+.testimonial-avatar-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.05rem;
+  font-family: var(--font-heading);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.testimonial-author {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.testimonial-author .author-name {
+  font-weight: 800;
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.testimonial-author .author-role {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  line-height: 1.2;
+}
+
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.indicator-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--border-light);
+  opacity: 0.5;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.indicator-dot.active {
+  opacity: 1;
+  background-color: var(--accent-primary);
+  width: 26px;
+  border-radius: 6px;
+}
