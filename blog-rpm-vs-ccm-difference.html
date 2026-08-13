@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPM vs CCM: What Is the Difference? | Care Med Billing Blog</title>
+  <meta name="description" content="A clear comparison of Remote Patient Monitoring (RPM) and Chronic Care Management (CCM), and how the two programs work together.">
+
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap">
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="styles.css?v=501.0">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="canonical" href="https://caremedbill.com/blog-rpm-vs-ccm-difference.html">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://caremedbill.com/blog-rpm-vs-ccm-difference.html">
+  <meta property="og:title" content="RPM vs CCM: What Is the Difference? | Care Med Billing Blog">
+  <meta property="og:description" content="A clear comparison of Remote Patient Monitoring (RPM) and Chronic Care Management (CCM), and how the two programs work together.">
+  <meta property="og:image" content="https://caremedbill.com/assets/img/vrtx_hero.jpg">
+  <meta property="og:site_name" content="Care Medical Billing & Management Services">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://caremedbill.com/blog-rpm-vs-ccm-difference.html">
+  <meta name="twitter:title" content="RPM vs CCM: What Is the Difference? | Care Med Billing Blog">
+  <meta name="twitter:description" content="A clear comparison of Remote Patient Monitoring (RPM) and Chronic Care Management (CCM), and how the two programs work together.">
+  <meta name="twitter:image" content="https://caremedbill.com/assets/img/vrtx_hero.jpg">
+
+  <!-- JSON-LD Structured Data Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "name": "Care Medical Billing & Management Services",
+    "url": "https://caremedbill.com/blog-rpm-vs-ccm-difference.html",
+    "logo": "https://caremedbill.com/assets/img/logo.png",
+    "image": "https://caremedbill.com/assets/img/vrtx_hero.jpg",
+    "description": "A clear comparison of Remote Patient Monitoring (RPM) and Chronic Care Management (CCM), and how the two programs work together.",
+    "telephone": "+1-888-865-5485",
+    "email": "info@caremedbill.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "7103 S Peek Road, Suite 520",
+      "addressLocality": "Richmond",
+      "addressRegion": "TX",
+      "postalCode": "77407",
+      "addressCountry": "US"
+    },
+    "openingHours": "Mo-Fr 08:00-18:00",
+    "priceRange": "$$"
+  }
+  </script>
+</head>
+<body>
+
+  <!-- EXECUTIVE CINEMATIC OPENING CURTAIN OVERLAY -->
+  <div class="executive-opening-curtain" id="executiveCurtain">
+    <div class="executive-curtain-panel executive-curtain-top"></div>
+    <div class="executive-curtain-panel executive-curtain-bottom"></div>
+    <div class="executive-emblem-badge">
+      <img src="assets/img/logo.png" alt="CareMedBill Emblem" style="height: 65px; width: auto; margin-bottom: 0.8rem; filter: drop-shadow(0 4px 15px rgba(56,189,248,0.5));">
+      <div style="color: #38bdf8; font-size: 0.85rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em; margin-bottom: 0.4rem;">Care Medical Billing & Management</div>
+      <div style="color: #ffffff; font-size: 1.25rem; font-family: var(--font-heading); font-weight: 700;">15+ Years Industry Leadership & Corporate Excellence</div>
+    </div>
+  </div>
+
+  <!-- Top Executive Utility Bar -->
+  <div class="top-utility-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+        <a href="tel:+18888655485"><i class="fas fa-phone-alt" style="color: #38bdf8;"></i> +1 888 865 5485</a>
+        <a href="mailto:info@caremedbill.com"><i class="fas fa-envelope" style="color: #38bdf8;"></i> info@caremedbill.com</a>
+        <span><i class="fas fa-map-marker-alt" style="color: #38bdf8;"></i> 7103 S Peek Road, Suite 520, Richmond, TX 77407</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 1.5rem; font-weight: 700;">
+        <span><i class="fas fa-award" style="color: #38bdf8;"></i> Over 15 Years Industry Experience</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Executive Navigation Header -->
+  <header>
+    <nav class="navbar">
+      <a href="index.html" class="logo">
+        <img src="assets/img/logo.png" alt="CareMedBill Logo" class="logo-img">
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="specialities.html">Specialities</a></li>
+        <li><a href="blog.html" class="active">Blog</a></li>
+        <li><a href="whyus.html">Why Us</a></li>
+        <li><a href="ccm.html">CCM & RPM</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="getintouch.html">Get In Touch</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" title="Switch Theme"><i class="fas fa-moon"></i></button>
+        <a href="bookingappointment.html" class="btn btn-primary" style="padding: 0.75rem 1.6rem; font-size: 0.92rem;">Free Audit</a>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <section class="hero-full-bg-container page-banner-hero">
+      <div class="hero-bg-image-slider">
+        <img src="assets/img/vrtx_hero.jpg" alt="CareMedBill Executive Facility" class="hero-bg-slide active">
+        <img src="assets/img/hq_building.jpg" alt="CareMedBill Headquarters" class="hero-bg-slide">
+      </div>
+      <div class="hero-overlay-gradient"></div>
+      <div class="container hero-content-layer">
+        <div style="max-width: 880px; margin: 0 auto; text-align: center;">
+          <nav class="breadcrumb-nav" style="justify-content:center;"><a href="index.html">Home</a><span class="sep">/</span><a href="blog.html">Blog</a><span class="sep">/</span><span class="current">RPM vs CCM: What Is the Difference?</span></nav>
+          <div class="subtitle">RPM & CCM</div>
+          <h1 class="gradient-text" style="font-size: clamp(2.1rem, 4.2vw, 3.4rem); text-shadow: 0 4px 20px rgba(0,0,0,0.75);">RPM vs CCM: What Is the Difference?</h1>
+          <div class="article-meta">
+            <span><i class="fas fa-user-md"></i>Care Med Billing Editorial Team</span>
+            <span><i class="fas fa-folder"></i>RPM & CCM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="article-body">
+          <p>RPM and CCM are often mentioned together because they both create recurring revenue from chronic disease management — but they're distinct programs with different requirements, and understanding the difference matters for billing them correctly.</p>
+          <h2>Remote Patient Monitoring (RPM)</h2>
+          <p>RPM is built around connected devices transmitting objective health data — blood pressure, glucose, oxygen saturation — from the patient's home to the care team on an ongoing basis. Reimbursement is tied to device data transmission and the clinical time spent reviewing it.</p>
+          <h2>Chronic Care Management (CCM)</h2>
+          <p>CCM is built around non-device, non-face-to-face care coordination — care plan updates, medication management, and communication between visits. It doesn't require a connected device at all; it's centered on time spent coordinating a patient's overall chronic care.</p>
+          <h2>Can a Patient Be Enrolled in Both?</h2>
+          <p>Yes — a patient can be enrolled in RPM and CCM simultaneously, as long as the time and services billed under each program don't overlap. This requires careful documentation to show the two are being tracked and billed separately.</p>
+          <h2>Why Many Practices Run Both</h2>
+          <p>For a patient managing a chronic condition like heart failure or diabetes, RPM captures the objective data trend while CCM captures the coordination work around that data — medication adjustments, specialist referrals, and follow-up calls. Together they reflect the full scope of chronic care being delivered, and both are separately billable when documented correctly.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-card);">
+      <div class="container">
+        <div class="section-header reveal-on-scroll">
+          <div class="subtitle">Keep Reading</div>
+          <h2>Related <span class="gradient-text">Resources</span></h2>
+        </div>
+        <div class="content-hub-grid reveal-on-scroll">
+        <div class="card content-hub-card">
+          <span class="hub-card-category">RPM & CCM</span>
+          <h3>What Is Remote Patient Monitoring (RPM)?</h3>
+          <p>A plain-language introduction to how RPM works and why practices are adding it.</p>
+          <a href="blog-what-is-remote-patient-monitoring.html" class="hub-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card content-hub-card">
+          <span class="hub-card-category">RPM & CCM</span>
+          <h3>What Is Chronic Care Management (CCM)?</h3>
+          <p>How CCM turns the care coordination practices already do into billable, recurring revenue.</p>
+          <a href="blog-what-is-chronic-care-management.html" class="hub-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card content-hub-card">
+          <span class="hub-card-category">RPM & CCM</span>
+          <h3>Which Patients Qualify for Chronic Care Management?</h3>
+          <p>How to identify the patients already in your panel who qualify for CCM enrollment.</p>
+          <a href="blog-which-patients-qualify-for-ccm.html" class="hub-card-link">Read Article <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card content-hub-card">
+          <span class="hub-card-category">Specialty Billing</span>
+          <h3>Internal Medicine Medical Billing</h3>
+          <p>Internal medicine billing services covering preventive care, chronic disease management, and RPM/CCM program billing.</p>
+          <a href="specialty-internal-medicine.html" class="hub-card-link">View Specialty Page <i class="fas fa-arrow-right"></i></a>
+        </div>
+        <div class="card content-hub-card">
+          <span class="hub-card-category">Specialty Billing</span>
+          <h3>Cardiology Medical Billing</h3>
+          <p>Cardiology medical billing services covering diagnostic testing, interventional procedures, and RPM/CCM programs for cardiac practices nationwide.</p>
+          <a href="specialty-cardiology.html" class="hub-card-link">View Specialty Page <i class="fas fa-arrow-right"></i></a>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta-section">
+      <div class="container reveal-on-scroll">
+        <div class="subtitle">Transform Your Practice Today</div>
+        <h2>Ready to Improve Your <span class="gradient-text">Practice Revenue?</span></h2>
+        <p>Schedule a free, no-obligation RCM audit with our senior medical billing consultants and discover hidden revenue leaks in your billing workflow.</p>
+        <div style="display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap;">
+          <a href="bookingappointment.html" class="btn btn-primary">Book Free Consultation <i class="fas fa-calendar-check"></i></a>
+          <a href="tel:+18888655485" class="btn btn-secondary"><i class="fas fa-phone-alt"></i> Call +1 888 865 5485</a>
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a href="index.html" class="logo" style="margin-bottom: 1.5rem;">
+            <img src="assets/img/logo.png" alt="CareMedBill Logo" class="logo-img">
+          </a>
+          <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 1.5rem;">
+            Care Medical Billing & Management Services has been leading in the medical billing industry for almost 15 years by providing top-notch billing services and satisfying customer needs.
+          </p>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Quick Links</h4>
+          <ul style="list-style: none; display: grid; gap: 0.8rem;">
+            <li><a href="index.html" style="color: #cbd5e1; text-decoration: none;">Home</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Services</a></li>
+            <li><a href="specialty-billing.html" style="color: #cbd5e1; text-decoration: none;">Medical Billing by Specialty</a></li>
+            <li><a href="blog.html" style="color: #cbd5e1; text-decoration: none;">Blog</a></li>
+            <li><a href="whyus.html" style="color: #cbd5e1; text-decoration: none;">Why Us</a></li>
+            <li><a href="getintouch.html" style="color: #cbd5e1; text-decoration: none;">Get In Touch</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Popular service</h4>
+          <ul style="list-style: none; display: grid; gap: 0.8rem;">
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Medical Billing</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Insurance Verification</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Account Receivable</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Credentialing</a></li>
+            <li><a href="ccm.html" style="color: #cbd5e1; text-decoration: none;">CCM & RPM</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Our Address</h4>
+          <ul style="list-style: none; display: grid; gap: 1rem;">
+            <li style="display: flex; gap: 0.8rem; align-items: flex-start; color: #cbd5e1;">
+              <i class="fas fa-map-marker-alt" style="color: var(--accent-primary); margin-top: 0.2rem;"></i>
+              <span>7103 S Peek Road, Suite 520, Richmond, TX 77407</span>
+            </li>
+            <li style="display: flex; gap: 0.8rem; align-items: center; color: #cbd5e1;">
+              <i class="fas fa-envelope" style="color: var(--accent-primary);"></i>
+              <a href="mailto:info@caremedbill.com" style="color: #cbd5e1; text-decoration: none;">info@caremedbill.com</a>
+            </li>
+            <li style="display: flex; gap: 0.8rem; align-items: center; color: #cbd5e1;">
+              <i class="fas fa-phone-alt" style="color: var(--accent-primary);"></i>
+              <a href="tel:+18888655485" style="color: #cbd5e1; text-decoration: none;">+1 888 865 5485</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+        Copyright 2026 Care Medical Billing & Management Services . All Rights Reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js?v=501.0"></script>
+</body>
+</html>
