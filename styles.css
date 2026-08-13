@@ -1944,7 +1944,7 @@ header {
   padding: var(--space-3xl) 0 !important;
   background: transparent !important;
 }
-.section:nth-child(even) {
+.section:nth-child(even):not(.cta-section) {
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0) 0%,
@@ -1953,7 +1953,7 @@ header {
     rgba(255, 255, 255, 0) 100%
   ) !important;
 }
-[data-theme="dark"] .section:nth-child(even) {
+[data-theme="dark"] .section:nth-child(even):not(.cta-section) {
   background: linear-gradient(
     180deg,
     rgba(15, 23, 42, 0) 0%,
