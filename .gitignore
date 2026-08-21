@@ -55,3 +55,5 @@ npm-debug.log*
 # Note: deploy.py exists at project root (FTP deployment script).
 # It reads credentials from .env — do NOT commit .env.
 # deploy.py itself is safe to commit (no hardcoded secrets).
+.vercel
+.env*
