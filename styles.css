@@ -2624,8 +2624,9 @@ h3.gradient-text {
 
 /* Hub grid of link-out cards (specialty tiles / blog post tiles) */
 .content-hub-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: 2rem;
 }
 
@@ -2633,6 +2634,7 @@ h3.gradient-text {
   text-align: left !important;
   display: flex;
   flex-direction: column;
+  flex: 1 1 300px;
   padding: 2rem !important;
 }
 
@@ -2642,7 +2644,6 @@ h3.gradient-text {
   font-size: 0.95rem;
   line-height: 1.7;
   margin-bottom: 1.25rem;
-  flex-grow: 1;
 }
 
 .content-hub-card .hub-card-link {
