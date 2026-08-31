@@ -547,3 +547,63 @@ document.addEventListener('DOMContentLoaded', () => {
     restartTestiAutoRotate();
   }
 });
+
+// Real form submission handler (Web3Forms) — replaces prior no-op/native form
+// submits on liveGetInTouchForm, newsletterFormTouch, and bookingForm.
+document.addEventListener('DOMContentLoaded', () => {
+  const WEB3FORMS_ACCESS_KEY = 'WEB3FORMS_ACCESS_KEY_PLACEHOLDER';
+
+  function wireForm(formId, subject) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : null;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending...';
+      }
+
+      const formData = new FormData(form);
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      formData.append('subject', subject);
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: formData,
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          if (window.Swal) {
+            Swal.fire({ icon: 'success', title: 'Thank you!', text: 'Your request has been received. Our team will reach out shortly.' });
+          } else {
+            alert('Thank you! Your request has been received. Our team will reach out shortly.');
+          }
+          form.reset();
+        } else {
+          throw new Error(result.message || 'Submission failed');
+        }
+      } catch (err) {
+        if (window.Swal) {
+          Swal.fire({ icon: 'error', title: 'Something went wrong', text: 'Please try again or contact us directly by phone or email.' });
+        } else {
+          alert('Something went wrong submitting your request. Please try again or contact us directly by phone or email.');
+        }
+      } finally {
+        if (submitBtn && originalBtnHtml !== null) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+      }
+    });
+  }
+
+  wireForm('liveGetInTouchForm', 'CareMedBill — Get In Touch Form Submission');
+  wireForm('newsletterFormTouch', 'CareMedBill — Newsletter Signup');
+  wireForm('bookingForm', 'CareMedBill — Consultation Booking Request');
+});

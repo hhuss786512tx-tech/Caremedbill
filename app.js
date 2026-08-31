@@ -87,14 +87,45 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Contact Form Handler
+  // 7. Contact Form Handler (Web3Forms — real submission, not a fake alert)
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      alert('Thank you! Your inquiry has been received. Our team will reach out within 2 hours.');
-      if (modal) modal.classList.remove('active');
-      contactForm.reset();
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnHtml = submitBtn ? submitBtn.innerHTML : null;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending...';
+      }
+
+      const formData = new FormData(contactForm);
+      formData.append('access_key', 'WEB3FORMS_ACCESS_KEY_PLACEHOLDER');
+      formData.append('subject', 'CareMedBill — Contact Form Submission');
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: formData,
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          alert('Thank you! Your inquiry has been received. Our team will reach out within 2 hours.');
+          if (modal) modal.classList.remove('active');
+          contactForm.reset();
+        } else {
+          throw new Error(result.message || 'Submission failed');
+        }
+      } catch (err) {
+        alert('Something went wrong submitting your inquiry. Please try again or contact us directly by phone or email.');
+      } finally {
+        if (submitBtn && originalBtnHtml !== null) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnHtml;
+        }
+      }
     });
   }
 });
