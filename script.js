@@ -48,19 +48,52 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileToggle = document.getElementById('mobileToggle');
   const navLinks = document.getElementById('navLinks');
   if (mobileToggle && navLinks) {
+    // .navbar has a backdrop-filter, which makes it the containing block for any
+    // position:fixed descendant — so the fixed full-screen menu panel would only
+    // cover the navbar's own small box instead of the viewport. Reparenting to
+    // <body> while open escapes that, then restores DOM order on close so the
+    // desktop inline layout (nav sits between logo and nav-actions) is unaffected.
+    const navLinksAnchor = document.createComment('nav-links-anchor');
+    navLinks.after(navLinksAnchor);
+
+    function openMenu() {
+      document.body.appendChild(navLinks);
+      navLinks.classList.add('active');
+      document.body.classList.add('nav-open');
+    }
+    function closeMenu() {
+      navLinks.classList.remove('active');
+      document.body.classList.remove('nav-open');
+      navLinksAnchor.after(navLinks);
+    }
+
     mobileToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      navLinks.classList.toggle('active');
+      if (navLinks.classList.contains('active')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
     });
 
     document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
-        navLinks.classList.remove('active');
+      if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
+        closeMenu();
       }
     });
 
     navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => navLinks.classList.remove('active'));
+      link.addEventListener('click', () => closeMenu());
+    });
+
+    // Escape and desktop-resize safety net: if the viewport crosses into the
+    // desktop breakpoint while the drawer is open, close it so navLinks gets
+    // restored to its normal in-flow position in the navbar.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('active')) closeMenu();
+    });
+    window.matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
+      if (e.matches && navLinks.classList.contains('active')) closeMenu();
     });
   }
 
