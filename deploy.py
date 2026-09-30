@@ -54,8 +54,9 @@ def deploy():
         sys.exit(1)
 
     local_root = os.path.abspath(os.path.dirname(__file__))
-    ignore_files = {'.env', '.env.example', 'deploy.py', '.gitignore', '.DS_Store'}
-    ignore_dirs = {'.git', '__pycache__', 'node_modules'}
+    ignore_files = {'.env', '.env.example', 'deploy.py', '.gitignore', '.DS_Store', '.htaccess.proposed'}
+    allowed_dotfiles = {'.htaccess'}  # server config must ship; every other dotfile stays local
+    ignore_dirs = {'.git', '__pycache__', 'node_modules', 'screenshots'}
 
     uploaded_count = 0
 
@@ -73,7 +74,7 @@ def deploy():
         ensure_remote_dir(ftp, target_remote_dir)
 
         for file in files:
-            if file in ignore_files or file.startswith('.'):
+            if file in ignore_files or file.endswith('.md') or (file.startswith('.') and file not in allowed_dotfiles):
                 continue
 
             local_file_path = os.path.join(root, file)

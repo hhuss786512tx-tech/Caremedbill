@@ -1425,10 +1425,14 @@ footer, .main-footer {
   transform-style: preserve-3d;
 }
 
-.flip-card:hover .flip-card-inner,
 .flip-card:focus-within .flip-card-inner,
 .flip-card.is-flipped .flip-card-inner {
   transform: rotateY(180deg);
+}
+/* Hover only flips on devices that really hover; on touch screens :hover sticks
+   after a tap and made the second tap unable to flip the card back. */
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
 }
 
 .flip-card-front,
@@ -1919,13 +1923,14 @@ header {
   border-color: rgba(56, 189, 248, 0.16) !important;
 }
 
-/* The flip faces are already inside a bezel — don't double up the treatment. */
+/* The flip faces are already inside a bezel — don't double up the treatment.
+   Never set transform here: the faces carry rotateY() and overriding it to
+   none breaks backface-visibility (front bleeds through the back in Safari). */
 .flip-card .card,
 .flip-card .service-card,
 .flip-card .bento-card {
   border: none !important;
   box-shadow: none !important;
-  transform: none !important;
 }
 
 .card:hover, .bento-card:hover, .service-card:hover, .pricing-card:hover {
@@ -1933,9 +1938,9 @@ header {
   border-color: rgba(2, 132, 199, 0.28) !important;
   box-shadow: var(--shadow-float), var(--inner-highlight) !important;
 }
-.flip-card .card:hover,
-.flip-card .service-card:hover,
-.flip-card .bento-card:hover { transform: none !important; }
+/* Faces keep their own rotation on hover; the generic card lift must not win. */
+.flip-card .flip-card-front:hover { transform: rotateY(0deg) !important; }
+.flip-card .flip-card-back:hover { transform: rotateY(180deg) !important; }
 
 /* Icon tiles: softer, concentric with the card corner, no hard 2px outline. */
 .card-icon, .bento-icon {
@@ -2719,4 +2724,24 @@ h3.gradient-text {
   border-top: 1.5px solid var(--border-light);
   margin-top: 3rem;
   padding-top: 2.5rem;
+}
+
+/* Flip faces: lock each face's rotation and promote to its own layer so both
+   Chrome and Safari cull the hidden side (prevents mirrored ghost text). */
+.flip-card .flip-card-front { transform: rotateY(0deg) translateZ(0.1px) !important; }
+.flip-card .flip-card-back { transform: rotateY(180deg) translateZ(0.1px) !important; }
+.flip-card .flip-card-front,
+.flip-card .flip-card-back {
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+/* Safari/WebKit ignores backface-visibility on faces whose children are
+   composited separately, so the front's mirrored copy showed through the back.
+   Hide the front outright at the flip midpoint (0.75s flip / 2). */
+.flip-card-front { transition: opacity 0s linear 0.375s; }
+.flip-card:focus-within .flip-card-front,
+.flip-card.is-flipped .flip-card-front { opacity: 0 !important; }
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:hover .flip-card-front { opacity: 0 !important; }
 }
