@@ -157,59 +157,79 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   const blobFrame = document.querySelector('.vrtx-blob-frame');
-  const parallaxImgs = document.querySelectorAll('.parallax-img');
+  const heroSlider = document.querySelector('.hero-bg-image-slider');
+  const heroBox = document.querySelector('.hero-full-bg-container');
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let lastScrollY = -1;
 
-  function updateParallaxAndLiquidMotion() {
-    const scrollY = window.scrollY;
-
-    // This loop previously recalculated and rewrote styles on every single
-    // frame forever, including while the page sat idle — each pass forcing a
-    // layout via getBoundingClientRect. Bail out unless the page actually moved.
-    if (scrollY === lastScrollY) {
-      requestAnimationFrame(updateParallaxAndLiquidMotion);
-      return;
-    }
-    lastScrollY = scrollY;
-
-    bgSlides.forEach(slide => {
-      slide.style.transform = `scale(1.06) translateY(${scrollY * 0.42}px)`;
-    });
-
-    if (blobFrame) {
-      const r1 = 60 + Math.sin(scrollY * 0.005) * 20;
-      const r2 = 40 + Math.cos(scrollY * 0.006) * 20;
-      const r3 = 70 + Math.sin(scrollY * 0.004) * 15;
-      const r4 = 30 + Math.cos(scrollY * 0.007) * 25;
-      blobFrame.style.borderRadius = `${r1}% ${100 - r1}% ${r3}% ${100 - r3}% / ${r2}% ${r4}% ${100 - r4}% ${100 - r2}%`;
-    }
-
-    gradientWords.forEach((word, idx) => {
-      const shift = (scrollY * 0.18) + (idx * 20);
-      word.style.backgroundPosition = `${shift % 300}% 50%`;
-    });
-
-    parallaxImgs.forEach(img => {
-      const speed = parseFloat(img.getAttribute('data-speed')) || 0.15;
-      const rect = img.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        // The image is scaled up 6%, so it has 3% of slack on each edge. Any
-        // travel beyond that pulls the image off its frame and shows a gap.
-        const scale = 1.06;
-        const slack = (rect.height * (scale - 1)) / 2;
-        const raw = (window.innerHeight - rect.top) * speed * 0.2;
-        const yPos = Math.max(-slack, Math.min(slack, raw - slack));
-        img.style.transform = `translate3d(0, ${yPos.toFixed(2)}px, 0) scale(${scale})`;
-      }
-    });
-
-    requestAnimationFrame(updateParallaxAndLiquidMotion);
-  }
-  // Parallax is decorative; skip it entirely when the user asks for less motion.
+  // Scroll-driven motion. The old loop rewrote transforms on every full-screen
+  // hero photo (each carrying a 1.4s CSS transition, so every write restarted an
+  // animation), reshaped the blob and repainted every gradient headline on every
+  // frame — even off-screen — which made Firefox stutter badly. Now:
+  //  * the parallax is ONE transform-only write on the slider container,
+  //  * only elements actually near the viewport are touched,
+  //  * updates run once per frame, and only while scrolling.
+  // Image parallax was removed on purpose: repainting large clipped photos on
+  // every scroll step is what made software-rendered Firefox stutter, and the
+  // drift was at most ~15px. The photos keep their static 6% overscan crop.
   if (!reduceMotion) {
-    requestAnimationFrame(updateParallaxAndLiquidMotion);
+    const visible = new Set();
+    const wordIndex = new Map();
+    gradientWords.forEach((w, i) => wordIndex.set(w, i));
+
+    const setWord = (word, y) => {
+      const pos = Math.round((((y * 0.18) + (wordIndex.get(word) * 20)) % 300) * 2) / 2;
+      if (word._bgPos !== pos) {
+        word._bgPos = pos;
+        word.style.backgroundPosition = `${pos}% 50%`;
+      }
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          visible.add(e.target);
+          if (wordIndex.has(e.target)) setWord(e.target, window.scrollY);
+        } else {
+          visible.delete(e.target);
+        }
+      });
+    }, { rootMargin: '120px 0px' });
+    gradientWords.forEach((w) => io.observe(w));
+    if (blobFrame) io.observe(blobFrame);
+
+    let heroHeight = heroBox ? heroBox.offsetHeight : 0;
+    window.addEventListener('resize', () => { heroHeight = heroBox ? heroBox.offsetHeight : 0; }, { passive: true });
+    if (heroSlider) heroSlider.style.willChange = 'transform';
+
+    let lastScrollY = -1;
+    let ticking = false;
+
+    function updateScrollMotion() {
+      ticking = false;
+      const scrollY = window.scrollY;
+      if (scrollY === lastScrollY) return;
+      lastScrollY = scrollY;
+
+      if (heroSlider && scrollY <= heroHeight + 50) {
+        heroSlider.style.transform = `translate3d(0, ${(scrollY * 0.42).toFixed(1)}px, 0)`;
+      }
+
+      if (blobFrame && visible.has(blobFrame)) {
+        const r1 = 60 + Math.sin(scrollY * 0.005) * 20;
+        const r2 = 40 + Math.cos(scrollY * 0.006) * 20;
+        const r3 = 70 + Math.sin(scrollY * 0.004) * 15;
+        const r4 = 30 + Math.cos(scrollY * 0.007) * 25;
+        blobFrame.style.borderRadius = `${r1}% ${100 - r1}% ${r3}% ${100 - r3}% / ${r2}% ${r4}% ${100 - r4}% ${100 - r2}%`;
+      }
+
+      visible.forEach((el) => { if (wordIndex.has(el)) setWord(el, scrollY); });
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateScrollMotion); }
+    }, { passive: true });
+    requestAnimationFrame(updateScrollMotion);
   }
 
   // 5. REPEATABLE 3D SPLIT-LOGO MERGE SCROLL ANIMATION

@@ -2745,3 +2745,7 @@ h3.gradient-text {
 @media (hover: hover) and (pointer: fine) {
   .flip-card:hover .flip-card-front { opacity: 0 !important; }
 }
+
+/* Parallax photos are static now (see script.js); keep the 6% overscan crop the
+   old scroll code applied, so framing is identical in every browser. */
+.parallax-img { transform: scale(1.06); }
