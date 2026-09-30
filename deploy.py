@@ -1,6 +1,6 @@
 import os
 import sys
-from ftplib import FTP, error_perm
+from ftplib import FTP_TLS, error_perm
 
 # Load environment variables from .env if present
 def load_env():
@@ -46,8 +46,9 @@ def deploy():
 
     print(f"🚀 Connecting to FTP server {host}...")
     try:
-        ftp = FTP(host)
+        ftp = FTP_TLS(host)  # explicit FTPS: credentials and files are encrypted in transit
         ftp.login(user=user, passwd=passwd)
+        ftp.prot_p()
         print("✅ Successfully logged in!")
     except Exception as e:
         print(f"❌ Connection failed: {e}")
