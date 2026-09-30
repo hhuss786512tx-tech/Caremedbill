@@ -90,6 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // 7. Contact Form Handler (Web3Forms — real submission, not a fake alert)
   const contactForm = document.getElementById('contactForm');
   if (contactForm) {
+    // Honeypot: hidden checkbox that only bots tick; Web3Forms discards those.
+    const trap = document.createElement('input');
+    trap.type = 'checkbox'; trap.name = 'botcheck'; trap.tabIndex = -1;
+    trap.setAttribute('aria-hidden', 'true');
+    trap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
+    contactForm.appendChild(trap);
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = contactForm.querySelector('button[type="submit"]');
@@ -100,7 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const formData = new FormData(contactForm);
-      formData.append('access_key', 'WEB3FORMS_ACCESS_KEY_PLACEHOLDER');
+      const emailInput = contactForm.querySelector('input[type="email"]');
+      if (emailInput && !formData.get('email')) formData.append('email', emailInput.value);
+      formData.append('access_key', '1842b4f7-444c-4731-867e-e813d86ba4e4');
       formData.append('subject', 'CareMedBill — Contact Form Submission');
 
       try {

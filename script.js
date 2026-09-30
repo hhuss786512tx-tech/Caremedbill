@@ -421,30 +421,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Intercept Form Submissions for Executive Practice Audit & Contact Forms
-  const forms = document.querySelectorAll('form');
-  forms.forEach(form => {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      if (modal) modal.classList.remove('active');
-      
-      if (typeof Swal !== 'undefined') {
-        Swal.fire({
-          icon: 'success',
-          title: 'Practice Audit Request Received!',
-          text: 'Thank you for reaching out. Our Senior RCM Executive Specialists are reviewing your practice details and will contact you within 24 hours.',
-          confirmButtonColor: '#0284c7',
-          background: document.documentElement.getAttribute('data-theme') === 'dark' ? '#0f172a' : '#ffffff',
-          color: document.documentElement.getAttribute('data-theme') === 'dark' ? '#f8fafc' : '#0f172a'
-        });
-      } else {
-        alert('Thank you! Your audit request has been submitted successfully.');
-      }
-      
-      form.reset();
-    });
-  });
+  // Form submissions are handled by wireForm() at the bottom of this file, which
+  // really sends them. (A global handler here used to cancel every submit and show a
+  // fake "request received" popup, so no lead was ever delivered.)
 
   // 3D Flip Card Touch & Click Event Listener
   const flipCards = document.querySelectorAll('.flip-card');
@@ -604,11 +583,23 @@ document.addEventListener('DOMContentLoaded', () => {
 // Real form submission handler (Web3Forms) — replaces prior no-op/native form
 // submits on liveGetInTouchForm, newsletterFormTouch, and bookingForm.
 document.addEventListener('DOMContentLoaded', () => {
-  const WEB3FORMS_ACCESS_KEY = 'WEB3FORMS_ACCESS_KEY_PLACEHOLDER';
+  const WEB3FORMS_ACCESS_KEY = '1842b4f7-444c-4731-867e-e813d86ba4e4';
 
   function wireForm(formId, subject) {
     const form = document.getElementById(formId);
     if (!form) return;
+
+    // Honeypot: Web3Forms drops any submission where this hidden box is ticked.
+    // People never see it; bots that fill every field tick it.
+    if (!form.querySelector('input[name="botcheck"]')) {
+      const trap = document.createElement('input');
+      trap.type = 'checkbox';
+      trap.name = 'botcheck';
+      trap.tabIndex = -1;
+      trap.setAttribute('aria-hidden', 'true');
+      trap.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;opacity:0;';
+      form.appendChild(trap);
+    }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -622,6 +613,9 @@ document.addEventListener('DOMContentLoaded', () => {
       const formData = new FormData(form);
       formData.append('access_key', WEB3FORMS_ACCESS_KEY);
       formData.append('subject', subject);
+      // Web3Forms replies go to the visitor only if the field is literally "email".
+      const emailInput = form.querySelector('input[type="email"]');
+      if (emailInput && !formData.get('email')) formData.append('email', emailInput.value);
 
       try {
         const response = await fetch('https://api.web3forms.com/submit', {
@@ -638,6 +632,8 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Thank you! Your request has been received. Our team will reach out shortly.');
           }
           form.reset();
+          const popup = document.getElementById('contactModal');
+          if (popup) popup.classList.remove('active');
         } else {
           throw new Error(result.message || 'Submission failed');
         }
@@ -659,4 +655,7 @@ document.addEventListener('DOMContentLoaded', () => {
   wireForm('liveGetInTouchForm', 'CareMedBill — Get In Touch Form Submission');
   wireForm('newsletterFormTouch', 'CareMedBill — Newsletter Signup');
   wireForm('bookingForm', 'CareMedBill — Consultation Booking Request');
+  wireForm('modalContactForm', 'CareMedBill — Free Audit Request (popup)');
+  wireForm('contactForm', 'CareMedBill — Contact Form Submission');
+  wireForm('newsletterForm', 'CareMedBill — Newsletter Signup');
 });
