@@ -120,14 +120,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const result = await response.json();
 
         if (result.success) {
-          alert('Thank you! Your inquiry has been received. Our team will reach out within 2 hours.');
+          if (window.Swal) {
+            Swal.fire({ icon: 'success', title: 'Thank you!', text: 'Your request has been received. Our team will reach out shortly.' });
+          } else {
+            alert('Thank you! Your request has been received. Our team will reach out shortly.');
+          }
           if (modal) modal.classList.remove('active');
           contactForm.reset();
         } else {
           throw new Error(result.message || 'Submission failed');
         }
       } catch (err) {
-        alert('Something went wrong submitting your inquiry. Please try again or contact us directly by phone or email.');
+        if (window.Swal) {
+          Swal.fire({ icon: 'error', title: 'Something went wrong', text: 'Please try again or contact us directly by phone or email.' });
+        } else {
+          alert('Something went wrong submitting your request. Please try again or contact us directly by phone or email.');
+        }
       } finally {
         if (submitBtn && originalBtnHtml !== null) {
           submitBtn.disabled = false;
