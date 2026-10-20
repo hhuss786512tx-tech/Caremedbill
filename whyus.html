@@ -11,7 +11,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..700&family=Figtree:wght@400;500;600;700&display=swap">
-  <link rel="stylesheet" href="styles.css?v=601.0">
+  <link rel="preload" href="assets/fonts/fontawesome/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="styles.css?v=600.0">
   <script defer src="assets/js/sweetalert2.all.min.js"></script>
   <link rel="canonical" href="https://caremedbill.com/whyus.html">
   
@@ -146,7 +148,7 @@
             </div>
 
             <div style="display: flex; gap: 1.2rem; flex-wrap: wrap;">
-              <a href="bookingappointment.html" class="btn btn-primary">Book a free audit <svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-arrow-right"/></svg></a>
+              <a href="bookingappointment.html" class="btn btn-primary">Book a free audit <i class="fas fa-arrow-right"></i></a>
               <a href="services.html" class="btn btn-secondary">See all services</a>
             </div>
           </div>
@@ -178,7 +180,7 @@
           <!-- Pillar 1: Experience and Expertise -->
           <div class="card reveal-on-scroll">
             <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.8rem;">
-              <div class="card-icon" style="margin-bottom: 0 !important;"><svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-award"/></svg></div>
+              <div class="card-icon" style="margin-bottom: 0 !important;"><i class="fas fa-award"></i></div>
               <h3 style="margin: 0;">1. Experience and Expertise</h3>
             </div>
             <div class="grid-2-col" style="gap: 2rem;">
@@ -196,7 +198,7 @@
           <!-- Pillar 2: Comprehensive and Tailored Services -->
           <div class="card reveal-on-scroll">
             <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.8rem;">
-              <div class="card-icon" style="margin-bottom: 0 !important;"><svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-cogs"/></svg></div>
+              <div class="card-icon" style="margin-bottom: 0 !important;"><i class="fas fa-cogs"></i></div>
               <h3 style="margin: 0;">2. Comprehensive and Tailored Services</h3>
             </div>
             <div class="grid-3" style="gap: 1.8rem;">
@@ -218,7 +220,7 @@
           <!-- Pillar 3: Efficiency and Transparency -->
           <div class="card reveal-on-scroll">
             <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.8rem;">
-              <div class="card-icon" style="margin-bottom: 0 !important;"><svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-chart-line"/></svg></div>
+              <div class="card-icon" style="margin-bottom: 0 !important;"><i class="fas fa-chart-line"></i></div>
               <h3 style="margin: 0;">3. Efficiency and Transparency</h3>
             </div>
             <div class="grid-3" style="gap: 1.8rem;">
@@ -232,7 +234,7 @@
               </div>
               <div class="card">
                 <h4>Economical Pricing Plans</h4>
-                <p style="color: var(--text-secondary); margin: 0; font-size: 0.98rem; line-height: 1.7;">We price each practice individually, based on the services it needs.</p>
+                <p style="color: var(--text-secondary); margin: 0; font-size: 0.98rem; line-height: 1.7;">We offer fully customized pricing plans tailored to your practice’s specific needs, ensuring cost-effectiveness.</p>
               </div>
             </div>
           </div>
@@ -240,7 +242,7 @@
           <!-- Pillar 4: Client-Centric Approach -->
           <div class="card reveal-on-scroll">
             <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.8rem;">
-              <div class="card-icon" style="margin-bottom: 0 !important;"><svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-user-friends"/></svg></div>
+              <div class="card-icon" style="margin-bottom: 0 !important;"><i class="fas fa-user-friends"></i></div>
               <h3 style="margin: 0;">4. Client-Centric Approach</h3>
             </div>
             <div class="grid-3" style="gap: 1.8rem;">
@@ -262,13 +264,13 @@
           <!-- Pillar 5: Technology and Compliance -->
           <div class="card reveal-on-scroll">
             <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.8rem;">
-              <div class="card-icon" style="margin-bottom: 0 !important;"><svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-shield-alt"/></svg></div>
+              <div class="card-icon" style="margin-bottom: 0 !important;"><i class="fas fa-shield-alt"></i></div>
               <h3 style="margin: 0;">5. Technology and Compliance</h3>
             </div>
             <div class="grid-2-col" style="gap: 2rem;">
               <div class="card">
                 <h4>Advanced Technology</h4>
-                <p style="color: var(--text-secondary); margin: 0; font-size: 1rem; line-height: 1.75;">We use current billing software and secure tools to keep claims moving and protect practice data.</p>
+                <p style="color: var(--text-secondary); margin: 0; font-size: 1rem; line-height: 1.75;">We use the latest software and high-tech tools to streamline billing processes and ensure data security.</p>
               </div>
               <div class="card">
                 <h4>Compliance</h4>
@@ -282,9 +284,9 @@
         <!-- Concluding Statement Box -->
         <div class="card reveal-on-scroll" style="margin-top: 4rem; text-align: center; background: #0f172a !important; color: #ffffff;">
           <p style="font-size: 1.3rem; line-height: 1.85; color: #cbd5e1; max-width: 1000px; margin: 0 auto 2.5rem;">
-            Choosing Care Medical Billing &amp; Management Services means you focus on your patients while we handle the billing. Our job is a healthier revenue cycle and a practice that runs with less admin work.
+            Choosing Care Medical Billing Services and Management means you can focus on providing top-notch care to your patients while we handle the complexities of medical billing. We are committed to optimizing your revenue cycle management and enhancing your practice’s overall efficiency.
           </p>
-          <a href="bookingappointment.html" class="btn btn-primary" style="padding: 1.1rem 2.8rem; font-size: 1.08rem;">Book a free audit <svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-arrow-right"/></svg></a>
+          <a href="bookingappointment.html" class="btn btn-primary" style="padding: 1.1rem 2.8rem; font-size: 1.08rem;">Book a free audit <i class="fas fa-arrow-right"></i></a>
         </div>
 
       </div>
@@ -300,7 +302,7 @@
           </p>
           <form id="newsletterForm" style="display: flex; gap: 1rem; max-width: 580px; margin: 0 auto; flex-wrap: wrap;">
             <input name="Email" type="email" required placeholder="Enter your email address..." class="vrtx-select" style="flex: 1; min-width: 260px;">
-            <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Subscribe <svg class="ico" aria-hidden="true"><use href="assets/img/icons.svg#i-arrow-right"/></svg></button>
+            <button type="submit" class="btn btn-primary" style="white-space: nowrap;">Subscribe <i class="fas fa-arrow-right"></i></button>
           </form>
         </div>
       </div>
