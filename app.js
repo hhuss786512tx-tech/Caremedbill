@@ -5,16 +5,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Dark / Light Theme Toggle
   const themeToggleBtn = document.getElementById('themeToggle');
-  const savedTheme = localStorage.getItem('theme') || 'dark';
+  // Same key and default as script.js so this page matches the rest of the site.
+  const savedTheme = localStorage.getItem('caremed_theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
+  document.body.setAttribute('data-theme', savedTheme);
   
   if (themeToggleBtn) {
     themeToggleBtn.addEventListener('click', () => {
       const currentTheme = document.documentElement.getAttribute('data-theme');
       const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', newTheme);
-      localStorage.setItem('theme', newTheme);
-      themeToggleBtn.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+      document.body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('caremed_theme', newTheme);
+      themeToggleBtn.innerHTML = newTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     });
   }
 

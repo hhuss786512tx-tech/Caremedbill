@@ -1,41 +1,41 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio | Caremed Billing</title>
-  <meta name="description" content="View our recent high-impact completed projects.">
+  <title>How We Work With Practices | Care Medical Billing</title>
+  <meta name="description" content="A short overview of how Care Medical Billing handles claim scrubbing, credentialing and old AR recovery for medical practices nationwide from Richmond, TX.">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   
   <!-- Stylesheet -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,500;1,600&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,500&display=swap">
-  <link rel="stylesheet" href="styles.css?v=510.0">
-
-
+  <link rel="preload" href="assets/fonts/fontawesome/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+  <link rel="stylesheet" href="styles.css?v=511.0">
   <link rel="canonical" href="https://caremedbill.com/portfolio.html">
   
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://caremedbill.com/portfolio.html">
-  <meta property="og:title" content="Care Medical Billing & Management Services | Executive RCM & Practice Growth Partner">
-  <meta property="og:description" content="Care Medical Billing delivers 15+ years of nationwide medical billing, AR recovery, credentialing, MIPS compliance, and CCM/RPM solutions.">
+  <meta property="og:title" content="How We Work With Practices | Care Medical Billing">
+  <meta property="og:description" content="A short overview of how Care Medical Billing handles claim scrubbing, credentialing and old AR recovery for medical practices nationwide from Richmond, TX.">
   <meta property="og:image" content="https://caremedbill.com/assets/img/hq_building.jpg">
   <meta property="og:site_name" content="Care Medical Billing & Management Services">
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:url" content="https://caremedbill.com/portfolio.html">
-  <meta name="twitter:title" content="Care Medical Billing & Management Services">
-  <meta name="twitter:description" content="Care Medical Billing delivers 15+ years of nationwide medical billing, AR recovery, credentialing, MIPS compliance, and CCM/RPM solutions.">
+  <meta name="twitter:title" content="How We Work With Practices | Care Medical Billing">
+  <meta name="twitter:description" content="A short overview of how Care Medical Billing handles claim scrubbing, credentialing and old AR recovery for medical practices nationwide from Richmond, TX.">
   <meta name="twitter:image" content="https://caremedbill.com/assets/img/hq_building.jpg">
 
   <!-- JSON-LD Structured Data Schema -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "MedicalBusiness",
+    "@type": "ProfessionalService",
     "name": "Care Medical Billing & Management Services",
     "url": "https://caremedbill.com/portfolio.html",
     "logo": "https://caremedbill.com/assets/img/logo.png",
@@ -51,6 +51,7 @@
       "postalCode": "77407",
       "addressCountry": "US"
     },
+    "areaServed": "US",
     "openingHours": "Mo-Fr 08:00-18:00",
     "priceRange": "$$"
   }
@@ -73,18 +74,21 @@
   <header>
     <nav class="navbar">
       <a href="index.html" class="logo">
-        <img src="assets/img/logo.png" alt="CareMedBill Logo" class="logo-img">
+        <img src="assets/img/logo.png" alt="CareMedBill Logo" class="logo-img" width="480" height="187">
       </a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="index.html" class="">Home</a></li>
-        <li><a href="services.html" class="">Services & Pricing</a></li>
-        <li><a href="portfolio.html" class="active">Portfolio</a></li>
-        <li><a href="about.html" class="">About Us</a></li>
-        <li><a href="contact.html" class="">Contact</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="specialities.html">Specialities</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="whyus.html">Why Us</a></li>
+        <li><a href="ccm.html">CCM &amp; RPM</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="getintouch.html">Get In Touch</a></li>
       </ul>
       <div class="nav-actions">
-        <button class="theme-toggle" id="themeToggle" title="Toggle Light/Dark Theme">🌙</button>
-        <a href="#contact" class="btn btn-primary open-modal">Get Started</a>
+        <button class="theme-toggle" id="themeToggle" title="Switch Theme" aria-label="Switch theme"><i class="fas fa-moon"></i></button>
+        <a href="#contact" class="btn btn-primary open-modal" style="padding: 0.75rem 1.6rem; font-size: 0.92rem;">Get Started</a>
         <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">☰</button>
       </div>
     </nav>
@@ -94,57 +98,95 @@
     <section class="section">
       <div class="container">
         <div class="section-header reveal">
-          <span class="subtitle">Our Work</span>
-          <h1>Featured Showcase & <span class="gradient-text">Case Studies</span></h1>
+          <span class="subtitle">What We Do</span>
+          <h1>How We Work With <span class="gradient-text">Medical Practices</span></h1>
+          <p style="color: var(--text-secondary); font-size: 1.15rem;">Three parts of the revenue cycle we handle for practices nationwide. Each one is explained in full on our <a href="services.html">services page</a>.</p>
         </div>
         <div class="grid-3">
           <div class="card reveal">
-            <div class="card-icon">🏆</div>
-            <h3>Project Alpha Showcase</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Full-scale implementation delivering 300% ROI and 99.9% uptime compliance.</p>
-            <span class="badge">Case Study</span>
+            <div class="card-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+            <h3>Claim Scrubbing &amp; Submission</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Claims are checked against payer rules before they go out, and clean claims are submitted within 24 hours.</p>
+            <span class="badge">Medical Billing</span>
           </div>
           <div class="card reveal">
-            <div class="card-icon">⚡</div>
-            <h3>Enterprise Redesign</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Complete architectural refresh with glassmorphic tokens & modern typography.</p>
-            <span class="badge">Transformation</span>
+            <div class="card-icon"><i class="fas fa-id-card-alt"></i></div>
+            <h3>Credentialing &amp; Enrollment</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Medicare, Medicaid and commercial payer enrollment, CAQH and NPI upkeep, and re-validation tracking so providers stay in network.</p>
+            <span class="badge">Credentialing</span>
           </div>
           <div class="card reveal">
-            <div class="card-icon">🛡️</div>
-            <h3>High-Security Infrastructure</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Bank-grade encryption deployment for HIPAA / SOC-2 audited client.</p>
-            <span class="badge">Security</span>
+            <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+            <h3>Old AR Recovery</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Follow-up and appeals on 30, 60 and 90+ day claims that would otherwise be written off.</p>
+            <span class="badge">Accounts Receivable</span>
           </div>
+        </div>
+        <div style="text-align: center; margin-top: 3rem;">
+          <a href="bookingappointment.html" class="btn btn-primary">Book a Free Practice Audit <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
     </section>
   </main>
 
   <!-- Footer -->
-  <footer>
+  <footer class="main-footer">
     <div class="container">
       <div class="footer-grid">
         <div>
-          <h3>Caremed Billing</h3>
-          <p>End-to-end medical billing, coding audit, credentialing, and denial management tailored for medical practices and hospital networks.</p>
+          <a href="index.html" class="logo" style="margin-bottom: 1.5rem;">
+            <img src="assets/img/logo.png" alt="CareMedBill Logo" class="logo-img" width="480" height="187" loading="lazy">
+          </a>
+          <p style="color: #94a3b8; line-height: 1.7; margin-bottom: 1.5rem;">
+            Care Medical Billing & Management Services has served medical practices for almost 15 years with billing, credentialing and revenue cycle support.
+          </p>
         </div>
+
         <div>
-          <h4>Quick Links</h4>
-          <ul style="list-style: none; margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
-            <li><a href="index.html" style="color: var(--text-secondary); text-decoration: none;">Home</a></li>
-            <li><a href="services.html" style="color: var(--text-secondary); text-decoration: none;">Services</a></li>
-            <li><a href="portfolio.html" style="color: var(--text-secondary); text-decoration: none;">Portfolio</a></li>
-            <li><a href="contact.html" style="color: var(--text-secondary); text-decoration: none;">Contact</a></li>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Quick Links</h4>
+          <ul style="list-style: none; display: grid; gap: 0.8rem;">
+            <li><a href="index.html" style="color: #cbd5e1; text-decoration: none;">Home</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Services</a></li>
+            <li><a href="specialities.html" style="color: #cbd5e1; text-decoration: none;">Specialities</a></li>
+            <li><a href="specialty-billing.html" style="color: #cbd5e1; text-decoration: none;">Medical Billing by Specialty</a></li>
+            <li><a href="blog.html" style="color: #cbd5e1; text-decoration: none;">Blog</a></li>
+            <li><a href="whyus.html" style="color: #cbd5e1; text-decoration: none;">Why Us</a></li>
+            <li><a href="getintouch.html" style="color: #cbd5e1; text-decoration: none;">Get In Touch</a></li>
           </ul>
         </div>
+
         <div>
-          <h4>Legal & Compliance</h4>
-          <p style="margin-top: 1rem;">100% Verified Quality Standards. Licensed & Insured Entity.</p>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Popular service</h4>
+          <ul style="list-style: none; display: grid; gap: 0.8rem;">
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Medical Billing</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Insurance Verification</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Account Receivable</a></li>
+            <li><a href="services.html" style="color: #cbd5e1; text-decoration: none;">Credentialing</a></li>
+            <li><a href="ccm.html" style="color: #cbd5e1; text-decoration: none;">CCM & RPM</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 style="color: #ffffff; margin-bottom: 1.5rem;">Our Address</h4>
+          <ul style="list-style: none; display: grid; gap: 1rem;">
+            <li style="display: flex; gap: 0.8rem; align-items: flex-start; color: #cbd5e1;">
+              <i class="fas fa-map-marker-alt" style="color: var(--accent-primary); margin-top: 0.2rem;"></i>
+              <span>7103 S Peek Road, Suite 520, Richmond, TX 77407</span>
+            </li>
+            <li style="display: flex; gap: 0.8rem; align-items: center; color: #cbd5e1;">
+              <i class="fas fa-envelope" style="color: var(--accent-primary);"></i>
+              <a href="mailto:info@caremedbill.com" style="color: #cbd5e1; text-decoration: none;">info@caremedbill.com</a>
+            </li>
+            <li style="display: flex; gap: 0.8rem; align-items: center; color: #cbd5e1;">
+              <i class="fas fa-phone-alt" style="color: var(--accent-primary);"></i>
+              <a href="tel:+18888655485" style="color: #cbd5e1; text-decoration: none;">+1 888 865 5485</a>
+            </li>
+          </ul>
         </div>
       </div>
-      <div class="footer-bottom">
-        <p>&copy; 2026 Caremed Billing. All rights reserved. Powered by AGY Web Harness.</p>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem; text-align: center; color: #94a3b8; font-size: 0.9rem;">
+        &copy; 2026 Care Medical Billing & Management Services. All Rights Reserved. &nbsp;|&nbsp; <a href="privacy.html" style="color: #cbd5e1; text-decoration: none;">Privacy Policy</a> &nbsp;|&nbsp; <a href="terms.html" style="color: #cbd5e1; text-decoration: none;">Terms of Use</a>
       </div>
     </div>
   </footer>
@@ -152,8 +194,8 @@
   <div class="modal-overlay" id="contactModal">
     <div class="modal-content">
       <button class="modal-close" id="closeModal">&times;</button>
-      <h2>Get a Consultation with <span class="gradient-text">Caremed Billing</span></h2>
-      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Fill out the form below to receive a custom project estimate within 2 hours.</p>
+      <h2>Get a Consultation with <span class="gradient-text">Care Medical Billing</span></h2>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Tell us a little about your practice and our team will get back to you.</p>
       <form id="contactForm">
         <div class="form-group">
           <label for="modalName">Full Name</label>
@@ -164,8 +206,8 @@
           <input name="Email" type="email" id="modalEmail" class="form-control" placeholder="john@company.com" required>
         </div>
         <div class="form-group">
-          <label for="modalMessage">Project Scope / Details</label>
-          <textarea name="Message" id="modalMessage" class="form-control" rows="4" placeholder="Tell us about your objectives..." required></textarea>
+          <label for="modalMessage">How can we help?</label>
+          <textarea name="Message" id="modalMessage" class="form-control" rows="4" placeholder="Your specialty, monthly claim volume, or the billing problem you want solved" required></textarea>
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Submit Consultation Request</button>
       </form>
@@ -173,55 +215,6 @@
   </div>
 
   <script src="assets/js/sweetalert2.all.min.js"></script>
-  <script src="app.js?v=3"></script>
-
-
-
-
-<!-- Light / Dark Mode Floating Toggle Button -->
-
-
-
-<!-- AI Theme Mode Switcher UI Widget -->
-<div class="ai-theme-toggle-widget" id="aiThemeWidget" title="Toggle AI Theme Mode">
-  <div class="ai-theme-badge">
-    <i class="fas fa-sparkles"></i>
-    <span id="aiThemeLabel">AI Theme</span>
-  </div>
-  <div class="ai-theme-switch-track">
-    <span class="ai-theme-icon moon"><i class="fas fa-moon"></i></span>
-    <span class="ai-theme-icon sun"><i class="fas fa-sun"></i></span>
-    <div class="ai-theme-thumb"></div>
-  </div>
-</div>
-
-<script>
-(function() {
-  const widget = document.getElementById('aiThemeWidget');
-  const label = document.getElementById('aiThemeLabel');
-  let currentTheme = localStorage.getItem('caremed_theme') || 'dark';
-
-  function applyTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    document.body.setAttribute('data-theme', theme);
-    if (label) {
-      label.innerText = (theme === 'light') ? 'Light Mode' : 'Dark Mode';
-    }
-  }
-
-  // Apply immediately on load
-  applyTheme(currentTheme);
-
-  if (widget) {
-    widget.addEventListener('click', function(e) {
-      e.preventDefault();
-      currentTheme = (currentTheme === 'dark') ? 'light' : 'dark';
-      localStorage.setItem('caremed_theme', currentTheme);
-      applyTheme(currentTheme);
-    });
-  }
-})();
-</script>
-
+  <script src="app.js?v=4"></script>
 </body>
 </html>
