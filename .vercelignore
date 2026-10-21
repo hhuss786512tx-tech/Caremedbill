@@ -1,0 +1,6 @@
+# Internal files: keep them out of the public deploy
+deploy.py
+*.md
+screenshots/
+.htaccess.proposed
+.env*

@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/contact.html", "destination": "/getintouch.html", "permanent": true },
+    { "source": "/contact", "destination": "/getintouch.html", "permanent": true }
+  ]
+}
